@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/java,netbeans,intellij
 # Edit at https://www.gitignore.io/?templates=java,netbeans,intellij
 
@@ -119,5 +118,3 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-
-# End of https://www.gitignore.io/api/java,netbeans,intellij
