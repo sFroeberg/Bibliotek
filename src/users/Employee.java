@@ -3,22 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package users;
 
 /**
  *
  * @author froeb
  */
-public class Actor {
-    private int actorId;
-
-    public int getActorId() {
-        return actorId;
-    }
-
-    public void setActorId(int actorId) {
-        this.actorId = actorId;
-    }
+public class Employee {
+    private String firstName, lastName, email;
 
     public String getFirstName() {
         return firstName;
@@ -35,5 +27,21 @@ public class Actor {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    private String firstName, lastName;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+    private int employeeId;
 }
