@@ -41,6 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Patron.findByEmail", query = "SELECT p FROM Patron p WHERE p.email = :email")
     , @NamedQuery(name = "Patron.findByTelnr", query = "SELECT p FROM Patron p WHERE p.telnr = :telnr")
     , @NamedQuery(name = "Patron.findByDob", query = "SELECT p FROM Patron p WHERE p.dob = :dob")
+    , @NamedQuery(name = "Patron.findByEmailAndPassword", query = "SELECT p FROM Patron p WHERE p.email = :email AND p.password = :password")
     , @NamedQuery(name = "Patron.findByCreated", query = "SELECT p FROM Patron p WHERE p.created = :created")})
 public class Patron implements Serializable {
 
@@ -60,6 +61,9 @@ public class Patron implements Serializable {
     private String email;
     @Column(name = "telnr")
     private String telnr;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
     @Basic(optional = false)
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
@@ -89,6 +93,7 @@ public class Patron implements Serializable {
         this.lastName = lastName;
         this.dob = dob;
         this.created = created;
+        this.password = password;
     }
 
     public Integer getPatronId() {
