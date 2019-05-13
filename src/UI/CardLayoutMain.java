@@ -7,15 +7,10 @@ public class CardLayoutMain {
     JPanel cards; //a panel that uses CardLayout
      
     public void addComponentToPane(Container pane) { 
-        //Create the "cards".
-        JPanel loginCard = new LoginUI(this);
-         
-        JPanel registerCard = new RegisterPatronUI(this);
-         
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
-        cards.add(loginCard, "loginCard");
-        cards.add(registerCard, "registerCard");
+        cards.add(new LoginUI(this), LoginUI.CARD_STRING);
+        cards.add(new RegisterPatronUI(this), RegisterPatronUI.CARD_STRING);
 
         pane.add(cards, BorderLayout.CENTER);
     }
@@ -23,9 +18,6 @@ public class CardLayoutMain {
         //Create and set up the window.
         JFrame frame = new JFrame("Bibliotek system");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
-        
         //Create and set up the content pane.
         CardLayoutMain demo = new CardLayoutMain();
         demo.addComponentToPane(frame.getContentPane());

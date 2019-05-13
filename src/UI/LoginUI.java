@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.swing.JPanel;
 
 public class LoginUI extends UI {
+    final static String CARD_STRING = "login";
     /**
      * Creates new form LoginUI
      */

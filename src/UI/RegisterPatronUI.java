@@ -1,6 +1,7 @@
 package UI;
 
 public class RegisterPatronUI extends UI {
+    final static String CARD_STRING = "register";
     /**
      * Creates new form RegisterPatronUI
      */

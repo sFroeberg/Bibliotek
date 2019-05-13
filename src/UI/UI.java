@@ -3,7 +3,7 @@ package UI;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
-public class UI extends javax.swing.JPanel {
+public abstract class  UI extends javax.swing.JPanel {
     private CardLayoutMain cardLayoutMain;
     public UI(CardLayoutMain cardLayoutMain){
         this.cardLayoutMain = cardLayoutMain;
