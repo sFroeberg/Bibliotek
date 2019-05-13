@@ -109,7 +109,7 @@ public class LoginUI extends UI {
     }//GEN-LAST:event_loginEmailFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        this.switchToCard("registerCard");
+        this.switchToCard(RegisterPatronUI.CARD_STRING);
         /*EntityManagerFactory emfactory = Persistence.
                 createEntityManagerFactory( "BibliotekPU" );
         EntityManager entitymanager = emfactory.

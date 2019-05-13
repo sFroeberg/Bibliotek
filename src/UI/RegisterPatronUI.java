@@ -156,7 +156,7 @@ public class RegisterPatronUI extends UI {
     }//GEN-LAST:event_registerPasswordFieldActionPerformed
 
     private void registerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerCancelButtonActionPerformed
-        this.switchToCard("loginCard");
+        this.switchToCard(LoginUI.CARD_STRING);
     }//GEN-LAST:event_registerCancelButtonActionPerformed
 
 

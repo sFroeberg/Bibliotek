@@ -9,7 +9,10 @@ public class CardLayoutMain {
     public void addComponentToPane(Container pane) { 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
+        
+        //Login
         cards.add(new LoginUI(this), LoginUI.CARD_STRING);
+        //RegisterPatron
         cards.add(new RegisterPatronUI(this), RegisterPatronUI.CARD_STRING);
 
         pane.add(cards, BorderLayout.CENTER);
@@ -17,10 +20,15 @@ public class CardLayoutMain {
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("Bibliotek system");
+        //Set custom icon
+        ImageIcon img = new ImageIcon("resources/book-icon.png");
+        frame.setIconImage(img.getImage());
+        //Disable resizing
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Create and set up the content pane.
-        CardLayoutMain demo = new CardLayoutMain();
-        demo.addComponentToPane(frame.getContentPane());
+        CardLayoutMain cardLayout = new CardLayoutMain();
+        cardLayout.addComponentToPane(frame.getContentPane());
          
         //Display the window.
         frame.pack();
@@ -32,7 +40,10 @@ public class CardLayoutMain {
      
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            //Set look and feel depending on OS type
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            //Cross platform
+            //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
