@@ -1,8 +1,6 @@
 package main;
 
 public class Main {
-    public static void main(String[] params) {
-        
-        
+    public static void main(String[] params) {  
     }
 }

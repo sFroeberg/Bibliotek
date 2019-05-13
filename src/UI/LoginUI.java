@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
 import entities.Patron;
@@ -11,17 +6,14 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Felix
- */
-public class LoginUI extends javax.swing.JPanel {
-
+public class LoginUI extends UI {
     /**
      * Creates new form LoginUI
      */
-    public LoginUI() {
+    public LoginUI(CardLayoutMain cardLayoutMain) {
+        super(cardLayoutMain);
         initComponents();
     }
 
@@ -39,6 +31,7 @@ public class LoginUI extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         loginPasswordField = new javax.swing.JPasswordField();
+        loginCancelButton = new javax.swing.JButton();
 
         jLabel1.setLabelFor(loginEmailField);
         jLabel1.setText("E-mail");
@@ -62,6 +55,8 @@ public class LoginUI extends javax.swing.JPanel {
             }
         });
 
+        loginCancelButton.setText("Avbryt");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,13 +70,18 @@ public class LoginUI extends javax.swing.JPanel {
                         .addGap(155, 155, 155)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(loginButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(loginEmailField)
-                            .addComponent(loginPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(loginEmailField)
+                                .addComponent(loginPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(10, 10, 10)
+                                        .addComponent(loginCancelButton)))))))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,7 +97,9 @@ public class LoginUI extends javax.swing.JPanel {
                 .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(loginButton)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGap(13, 13, 13)
+                .addComponent(loginCancelButton)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -106,27 +108,29 @@ public class LoginUI extends javax.swing.JPanel {
     }//GEN-LAST:event_loginEmailFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        EntityManagerFactory emfactory = Persistence.
+        this.switchToCard("registerCard");
+        /*EntityManagerFactory emfactory = Persistence.
                 createEntityManagerFactory( "BibliotekPU" );
         EntityManager entitymanager = emfactory.
                 createEntityManager( );
         
+        String password = new String(loginPasswordField.getPassword());
         List<Patron> loginPatron = entitymanager.createNamedQuery("Patron.findByEmailAndPassword").
                 setParameter("email", loginEmailField.getText()).
-                setParameter("password", loginPasswordField.getPassword()).
+                setParameter("password", password).
                 getResultList();
         if(loginPatron.size() == 1){
             System.out.println("Login sucess");
         }else{
             System.out.println("Login failed");
-        }
+        }*/
     }//GEN-LAST:event_loginButtonActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton;
+    private javax.swing.JButton loginCancelButton;
     private javax.swing.JTextField loginEmailField;
     private javax.swing.JPasswordField loginPasswordField;
     // End of variables declaration//GEN-END:variables

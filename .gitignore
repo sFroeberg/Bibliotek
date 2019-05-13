@@ -110,7 +110,7 @@ fabric.properties
 hs_err_pid*
 
 ### NetBeans ###
-**/nbproject/private/
+**/nbproject
 **/nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
 build/
