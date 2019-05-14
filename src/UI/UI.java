@@ -13,9 +13,9 @@ public abstract class  UI extends javax.swing.JPanel {
         return cardLayoutMain;
     }
     //Shows a specific card
-    public void switchToCard(String card){
-        JPanel panel = this.getCardLayoutMain().cards;
+    public void switchToCard(Class paramClass){
+        JPanel panel = this.getCardLayoutMain().getCards();
         CardLayout cardLayout = (CardLayout)(panel.getLayout());
-        cardLayout.show(panel, card);
+        cardLayout.show(panel, paramClass.getName());
     }
 }

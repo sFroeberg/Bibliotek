@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "loan")
+@Table(name = "Loan")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Loan.findAll", query = "SELECT l FROM Loan l")

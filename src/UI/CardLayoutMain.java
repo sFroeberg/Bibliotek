@@ -1,20 +1,34 @@
 package UI;
 
+import entities.Patron;
 import java.awt.*;
+import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.*;
  
 public class CardLayoutMain {
-    JPanel cards; //a panel that uses CardLayout
-     
+    private JPanel cards; //a panel that uses CardLayout
+    private Patron loggedIn; 
+    private EntityManager entityManager;
+    public CardLayoutMain(){
+        super();
+        EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "BibliotekPU" );
+        this.entityManager = emfactory.createEntityManager( );
+    }
     public void addComponentToPane(Container pane) { 
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
         
-        //Login
-        cards.add(new LoginUI(this), LoginUI.CARD_STRING);
-        //RegisterPatron
-        cards.add(new RegisterPatronUI(this), RegisterPatronUI.CARD_STRING);
-
+        ArrayList<UI> uiClasses = new ArrayList<>();
+        uiClasses.add(new LoginUI(this));
+        uiClasses.add(new RegisterPatronUI(this));
+        uiClasses.add(new PatronOverviewUI(this));
+        
+        for(UI current : uiClasses){
+            cards.add(current, current.getClass().getName());
+        }
         pane.add(cards, BorderLayout.CENTER);
     }
     private static void createAndShowGUI() {
@@ -37,7 +51,23 @@ public class CardLayoutMain {
         frame.setVisible(true);
         
     }
-     
+
+    public Patron getLoggedIn(){
+        return loggedIn;
+    }
+
+    public void setLoggedIn(Patron loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
+    public JPanel getCards() {
+        return cards;
+    }
+    
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+    
     public static void main(String[] args) {
         try {
             //Set look and feel depending on OS type

@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "author")
+@Table(name = "Author")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Author.findAll", query = "SELECT a FROM Author a")

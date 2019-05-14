@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "patron")
+@Table(name = "Patron")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Patron.findAll", query = "SELECT p FROM Patron p")
@@ -193,5 +193,7 @@ public class Patron implements Serializable {
     public String toString() {
         return "entities.Patron[ patronId=" + patronId + " ]";
     }
-    
+    public String getFullName(){
+        return this.firstName +" "+ this.lastName;
+    }
 }

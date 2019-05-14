@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "patron_type")
+@Table(name = "Patron_Type")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PatronType.findAll", query = "SELECT p FROM PatronType p")

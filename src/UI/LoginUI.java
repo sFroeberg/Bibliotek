@@ -1,7 +1,6 @@
 package UI;
 
 import entities.Patron;
-import java.awt.CardLayout;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,7 +8,6 @@ import javax.persistence.Persistence;
 import javax.swing.JPanel;
 
 public class LoginUI extends UI {
-    final static String CARD_STRING = "login";
     /**
      * Creates new form LoginUI
      */
@@ -34,6 +32,15 @@ public class LoginUI extends UI {
         loginPasswordField = new javax.swing.JPasswordField();
         loginCancelButton = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(500, 300));
+        setMinimumSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(500, 300));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
+
         jLabel1.setLabelFor(loginEmailField);
         jLabel1.setText("E-mail");
         jLabel1.setToolTipText("");
@@ -57,50 +64,52 @@ public class LoginUI extends UI {
         });
 
         loginCancelButton.setText("Avbryt");
+        loginCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginCancelButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(jLabel2)
+                .addGap(227, 227, 227))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(168, 168, 168)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(loginEmailField)
-                                .addComponent(loginPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(loginCancelButton)))))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                                .addComponent(loginButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(loginCancelButton))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(236, 236, 236)
+                        .addComponent(jLabel1)))
+                .addGap(167, 167, 167))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginButton)
-                .addGap(13, 13, 13)
-                .addComponent(loginCancelButton)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton)
+                    .addComponent(loginCancelButton))
+                .addGap(115, 115, 115))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -109,23 +118,29 @@ public class LoginUI extends UI {
     }//GEN-LAST:event_loginEmailFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        this.switchToCard(RegisterPatronUI.CARD_STRING);
-        /*EntityManagerFactory emfactory = Persistence.
-                createEntityManagerFactory( "BibliotekPU" );
-        EntityManager entitymanager = emfactory.
-                createEntityManager( );
-        
         String password = new String(loginPasswordField.getPassword());
-        List<Patron> loginPatron = entitymanager.createNamedQuery("Patron.findByEmailAndPassword").
+        List<Patron> loginPatron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByEmailAndPassword").
                 setParameter("email", loginEmailField.getText()).
                 setParameter("password", password).
                 getResultList();
         if(loginPatron.size() == 1){
             System.out.println("Login sucess");
+            this.getCardLayoutMain().setLoggedIn(loginPatron.get(0));
+            this.switchToCard(PatronOverviewUI.class);
         }else{
             System.out.println("Login failed");
-        }*/
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        //Remove data from textfields when hidden
+        loginEmailField.setText("");
+        loginPasswordField.setText("");
+    }//GEN-LAST:event_formComponentHidden
+
+    private void loginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCancelButtonActionPerformed
+        this.switchToCard(RegisterPatronUI.class);
+    }//GEN-LAST:event_loginCancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
