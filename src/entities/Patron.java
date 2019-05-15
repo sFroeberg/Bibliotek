@@ -78,7 +78,7 @@ public class Patron implements Serializable {
         this.patronId = patronId;
     }
 
-    public Patron(Integer patronId, String firstName, String lastName, Date dob, Date created) {
+    public Patron(Integer patronId, String firstName, String lastName, Date dob, Date created,String password) {
         this.patronId = patronId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -143,6 +143,14 @@ public class Patron implements Serializable {
         this.created = created;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     @XmlTransient
     public Collection<Loan> getLoanCollection() {
         return loanCollection;
@@ -178,7 +186,6 @@ public class Patron implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Patron)) {
             return false;
         }
