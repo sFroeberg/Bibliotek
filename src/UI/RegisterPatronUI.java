@@ -96,17 +96,12 @@ public class RegisterPatronUI extends UI {
         });
 
         jLabel7.setText("Bekräfta lösenord");
-
-<<<<<<< HEAD
-=======
         patronTypeChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         patronTypeChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patronTypeChooserActionPerformed(evt);
             }
         });
-
->>>>>>> 782cbb9c27fc761ecba15442a9cfdd7cad638447
         jLabel8.setText("Roll");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
