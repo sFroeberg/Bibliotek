@@ -6,6 +6,7 @@
 package UI;
 
 import entities.Actor;
+import entities.Dvd;
 import entities.Item;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.util.List;
@@ -17,12 +18,13 @@ import javax.persistence.Persistence;
  *
  * @author froeb
  */
-public class ActorSearch extends javax.swing.JPanel {
+public class ActorSearch extends UI {
 
     /**
      * Creates new form ActorSearch
      */
-    public ActorSearch() {
+    public ActorSearch(CardLayoutMain cardLayoutMain) {
+        super(cardLayoutMain);
         initComponents();
     }
 
@@ -163,52 +165,58 @@ public class ActorSearch extends javax.swing.JPanel {
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
        if(evt.getKeyCode() == VK_ENTER){
-            searchByLastName();
             searchByFirstName();
         }
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
        if(evt.getKeyCode() == VK_ENTER){
-            searchByFirstName();
             searchByLastName();
         }
     }//GEN-LAST:event_jTextField2KeyPressed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        searchByLastName();
-        searchByFirstName();
+        //searchByLastName();
+        //searchByFirstName();
+        if(!"".equals(jTextField1.getText())){
+            searchByLastName();        
+        }
+        else if(!"".equals(jTextField2.getText())){
+            searchByFirstName();            
+        } else{
+            UI.showErrorDialog("Skriv in förnamn eller efternamn!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
     private void searchByFirstName(){
-        jTextPane1.setText("");
         String actorName;
         actorName = jTextField1.getText();
-        EntityManagerFactory emfactory = Persistence.
-                createEntityManagerFactory( "BibliotekPU" );
-        EntityManager entitymanager = emfactory.
-                createEntityManager( );
         
-        List<Item> actorListFirstName = entitymanager.createNamedQuery("Item.findMoviesStarredInByFirstName").setParameter("firstName", jTextField1.getText()).getResultList();
+        EntityManager entitymanager = this.getCardLayoutMain().getEntityManager();
         
-        for (Item current: actorListFirstName){
-            System.out.println(current.getTitle());
-            jTextPane1.setText(jTextPane1.getText()+current.getTitle()+'\n');
+        List<Actor> actorListFirstName = entitymanager.createNamedQuery("Actor.findByFirstName").setParameter("firstName", jTextField1.getText()).getResultList();
+        
+        for (Actor current: actorListFirstName){
+            System.out.println(current.getDvdCollection());
+            List<Dvd> asd = (List)current.getDvdCollection();
+            for(Dvd curr: asd){
+                jTextPane1.setText(jTextPane1.getText()+curr.getItem().getTitle()+'\n');
+            } 
         }
     }
     private void searchByLastName(){
-        jTextPane1.setText("");
         String actorName;
         actorName = jTextField2.getText();
-        EntityManagerFactory emfactory = Persistence.
-                createEntityManagerFactory( "BibliotekPU" );
-        EntityManager entitymanager = emfactory.
-                createEntityManager( );
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
         
-        List<Actor> actorListLastName = entitymanager.createNamedQuery("Actor.findByLastName").setParameter("lastName", jTextField2.getText()).getResultList();
+        List<Actor> actorListLastName = em.createNamedQuery("Actor.findByLastName").setParameter("lastName", jTextField2.getText()).getResultList();
         
         for (Actor current: actorListLastName){
-            System.out.println(current.getLastName());
-            jTextPane1.setText(jTextPane1.getText()+current.getFullName()+'\n');
+            System.out.println(current.getDvdCollection());
+            List<Dvd> asd = (List)current.getDvdCollection();
+            for(Dvd curr: asd){
+                jTextPane1.setText(jTextPane1.getText()+curr.getItem().getTitle()+'\n');
+            }
+            
         }
     }
 

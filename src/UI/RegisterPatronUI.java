@@ -98,6 +98,11 @@ public class RegisterPatronUI extends UI {
         jLabel7.setText("Bekräfta lösenord");
 
         patronTypeChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        patronTypeChooser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                patronTypeChooserActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Roll");
 
@@ -269,6 +274,10 @@ public class RegisterPatronUI extends UI {
             }
         }
     }//GEN-LAST:event_registerButtonActionPerformed
+
+    private void patronTypeChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patronTypeChooserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_patronTypeChooserActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

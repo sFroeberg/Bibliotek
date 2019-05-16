@@ -22,7 +22,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Actor.findAll", query = "SELECT a FROM Actor a")
     , @NamedQuery(name = "Actor.findByActorId", query = "SELECT a FROM Actor a WHERE a.actorId = :actorId")
     , @NamedQuery(name = "Actor.findByFirstName", query = "SELECT a FROM Actor a WHERE a.firstName = :firstName")
-    , @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName")})
+    , @NamedQuery(name = "Actor.findByLastName", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName")
+    , @NamedQuery(name = "Actor.findByBothNames", query = "SELECT a FROM Actor a WHERE a.lastName = :lastName AND a.firstName = :firstName")})
 
 public class Actor implements Serializable {
 
