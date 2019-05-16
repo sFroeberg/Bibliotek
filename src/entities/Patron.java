@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -26,12 +21,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author froeb
- */
 @Entity
-@Table(name = "patron")
+@Table(name = "Patron")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Patron.findAll", query = "SELECT p FROM Patron p")
@@ -87,7 +78,7 @@ public class Patron implements Serializable {
         this.patronId = patronId;
     }
 
-    public Patron(Integer patronId, String firstName, String lastName, Date dob, Date created) {
+    public Patron(Integer patronId, String firstName, String lastName, Date dob, Date created,String password) {
         this.patronId = patronId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -152,6 +143,14 @@ public class Patron implements Serializable {
         this.created = created;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     @XmlTransient
     public Collection<Loan> getLoanCollection() {
         return loanCollection;
@@ -187,7 +186,6 @@ public class Patron implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Patron)) {
             return false;
         }
@@ -202,5 +200,7 @@ public class Patron implements Serializable {
     public String toString() {
         return "entities.Patron[ patronId=" + patronId + " ]";
     }
-    
+    public String getFullName(){
+        return this.firstName +" "+ this.lastName;
+    }
 }

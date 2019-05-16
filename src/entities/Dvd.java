@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,12 +16,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author froeb
- */
 @Entity
-@Table(name = "dvd")
+@Table(name = "DVD")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dvd.findAll", query = "SELECT d FROM Dvd d")
@@ -54,7 +45,7 @@ public class Dvd implements Serializable {
     @Basic(optional = false)
     @Column(name = "prodCountry")
     private String prodCountry;
-    @JoinTable(name = "dvd_actor", joinColumns = {
+    @JoinTable(name = "DVD_Actor", joinColumns = {
         @JoinColumn(name = "DVDItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "actorId", referencedColumnName = "actorId")})
     @ManyToMany
@@ -144,7 +135,6 @@ public class Dvd implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Dvd)) {
             return false;
         }

@@ -1,28 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
+import entities.Actor;
+import entities.Dvd;
 import entities.Patron;
-import java.awt.CardLayout;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.JPanel;
 
-/**
- *
- * @author Felix
- */
-public class LoginUI extends javax.swing.JPanel {
-
+public class LoginUI extends UI {
     /**
      * Creates new form LoginUI
      */
-    public LoginUI() {
+    public LoginUI(CardLayoutMain cardLayoutMain) {
+        super(cardLayoutMain);
         initComponents();
+        initButtonGroup();
     }
 
     /**
@@ -34,21 +28,28 @@ public class LoginUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         loginEmailField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         loginButton = new javax.swing.JButton();
         loginPasswordField = new javax.swing.JPasswordField();
+        loginCancelButton = new javax.swing.JButton();
+        patronBtn = new javax.swing.JRadioButton();
+        employeeBtn = new javax.swing.JRadioButton();
+
+        setMaximumSize(new java.awt.Dimension(500, 300));
+        setMinimumSize(new java.awt.Dimension(500, 300));
+        setPreferredSize(new java.awt.Dimension(500, 300));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
 
         jLabel1.setLabelFor(loginEmailField);
         jLabel1.setText("E-mail");
         jLabel1.setToolTipText("");
-
-        loginEmailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginEmailFieldActionPerformed(evt);
-            }
-        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setLabelFor(loginPasswordField);
@@ -62,6 +63,23 @@ public class LoginUI extends javax.swing.JPanel {
             }
         });
 
+        loginCancelButton.setText("Avbryt");
+        loginCancelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginCancelButtonActionPerformed(evt);
+            }
+        });
+
+        patronBtn.setSelected(true);
+        patronBtn.setText("Låntagare");
+        patronBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                patronBtnActionPerformed(evt);
+            }
+        });
+
+        employeeBtn.setText("Personal");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,65 +87,100 @@ public class LoginUI extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(168, 168, 168)
+                        .addGap(236, 236, 236)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(155, 155, 155)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(loginButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(loginEmailField)
-                            .addComponent(loginPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
-                .addContainerGap(135, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(168, 168, 168)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(loginButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(loginCancelButton)))
+                                .addGap(18, 18, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addGap(78, 78, 78)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(employeeBtn)
+                            .addComponent(patronBtn))))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addGap(53, 53, 53)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(patronBtn))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(employeeBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(loginButton)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginButton)
+                    .addComponent(loginCancelButton))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loginEmailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginEmailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_loginEmailFieldActionPerformed
-
+    private void initButtonGroup(){
+        buttonGroup1.add(patronBtn);
+        buttonGroup1.add(employeeBtn);
+    }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        EntityManagerFactory emfactory = Persistence.
-                createEntityManagerFactory( "BibliotekPU" );
-        EntityManager entitymanager = emfactory.
-                createEntityManager( );
-        
-        List<Patron> loginPatron = entitymanager.createNamedQuery("Patron.findByEmailAndPassword").
+        String password = new String(loginPasswordField.getPassword());
+        List<Patron> loginPatron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByEmailAndPassword").
                 setParameter("email", loginEmailField.getText()).
-                setParameter("password", loginPasswordField.getPassword()).
+                setParameter("password", password).
                 getResultList();
         if(loginPatron.size() == 1){
             System.out.println("Login sucess");
+            this.getCardLayoutMain().setLoggedIn(loginPatron.get(0));
+            this.switchToCard(PatronOverviewUI.class);
         }else{
             System.out.println("Login failed");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        //Remove data from textfields when hidden
+        loginEmailField.setText("");
+        loginPasswordField.setText("");
+    }//GEN-LAST:event_formComponentHidden
+
+    private void loginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCancelButtonActionPerformed
+        /*List<Dvd> dvds = this.getCardLayoutMain().getEntityManager().createNamedQuery("Dvd.findByItembarcode").setParameter("itembarcode", "123").getResultList();
+        System.out.println(dvds.get(0).getActorCollection().size());
+        List<Actor> actors = (List<Actor>) dvds.get(0).getActorCollection();
+        for(Actor curr : actors){
+            System.out.println(curr.getFullName());
+        }
+        System.out.println(actors.get(0).getDvdCollection().toString());
+        this.switchToCard(RegisterPatronUI.class);*/
+    }//GEN-LAST:event_loginCancelButtonActionPerformed
+
+    private void patronBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patronBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_patronBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton employeeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginButton;
+    private javax.swing.JButton loginCancelButton;
     private javax.swing.JTextField loginEmailField;
     private javax.swing.JPasswordField loginPasswordField;
+    private javax.swing.JRadioButton patronBtn;
     // End of variables declaration//GEN-END:variables
 }

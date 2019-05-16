@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -21,12 +16,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author froeb
- */
 @Entity
-@Table(name = "patron_type")
+@Table(name = "Patron_Type")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "PatronType.findAll", query = "SELECT p FROM PatronType p")
@@ -105,7 +96,6 @@ public class PatronType implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof PatronType)) {
             return false;
         }
@@ -118,7 +108,7 @@ public class PatronType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.PatronType[ patronTypeId=" + patronTypeId + " ]";
+        return this.getName();
     }
     
 }

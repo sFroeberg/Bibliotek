@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -24,12 +19,8 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author froeb
- */
 @Entity
-@Table(name = "item")
+@Table(name = "Item")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i")
@@ -166,7 +157,6 @@ public class Item implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Item)) {
             return false;
         }

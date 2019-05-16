@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,12 +17,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-/**
- *
- * @author froeb
- */
 @Entity
-@Table(name = "book")
+@Table(name = "Book")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")
@@ -42,12 +33,12 @@ public class Book implements Serializable {
     private String itembarcode;
     @Column(name = "ISBN")
     private String isbn;
-    @JoinTable(name = "book_author", joinColumns = {
+    @JoinTable(name = "Book_Author", joinColumns = {
         @JoinColumn(name = "BookItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "AuthorId", referencedColumnName = "authorId")})
     @ManyToMany
     private Collection<Author> authorCollection;
-    @JoinTable(name = "tag_book", joinColumns = {
+    @JoinTable(name = "Tag_Book", joinColumns = {
         @JoinColumn(name = "BookItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "Tagname", referencedColumnName = "name")})
     @ManyToMany
@@ -125,7 +116,6 @@ public class Book implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Book)) {
             return false;
         }
