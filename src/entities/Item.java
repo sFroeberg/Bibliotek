@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Item.findByTitle", query = "SELECT i FROM Item i WHERE i.title = :title")
     , @NamedQuery(name = "Item.findByLocation", query = "SELECT i FROM Item i WHERE i.location = :location")
     , @NamedQuery(name = "Item.findByReleaseYear", query = "SELECT i FROM Item i WHERE i.releaseYear = :releaseYear")})
+
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
