@@ -34,7 +34,7 @@ public class CardLayoutDemo implements ItemListener {
         //Create the "cards".
         JPanel card1 = new LoginUI();
          
-        JPanel card2 = new JPTest2();
+        JPanel card2 = new ActorSearch();
          
         //Create the panel that contains the "cards".
         cards = new JPanel(new CardLayout());
