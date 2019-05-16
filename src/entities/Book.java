@@ -33,12 +33,12 @@ public class Book implements Serializable {
     private String itembarcode;
     @Column(name = "ISBN")
     private String isbn;
-    @JoinTable(name = "book_author", joinColumns = {
+    @JoinTable(name = "Book_Author", joinColumns = {
         @JoinColumn(name = "BookItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "AuthorId", referencedColumnName = "authorId")})
     @ManyToMany
     private Collection<Author> authorCollection;
-    @JoinTable(name = "tag_book", joinColumns = {
+    @JoinTable(name = "Tag_Book", joinColumns = {
         @JoinColumn(name = "BookItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "Tagname", referencedColumnName = "name")})
     @ManyToMany

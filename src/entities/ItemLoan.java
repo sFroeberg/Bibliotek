@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "item_loan")
+@Table(name = "Item_Loan")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ItemLoan.findAll", query = "SELECT i FROM ItemLoan i")

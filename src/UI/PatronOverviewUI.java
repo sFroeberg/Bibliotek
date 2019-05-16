@@ -4,6 +4,7 @@ import entities.Patron;
 import java.text.SimpleDateFormat;
 import javax.persistence.RollbackException;
 import javax.swing.JOptionPane;
+import utils.RegexUtil;
 
 public class PatronOverviewUI extends UI {
     /**
@@ -56,20 +57,10 @@ public class PatronOverviewUI extends UI {
         jLabel1.setText("Förnamn");
 
         overviewFirstname.setEnabled(false);
-        overviewFirstname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overviewFirstnameActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Efternamn");
 
         overviewLastname.setEnabled(false);
-        overviewLastname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                overviewLastnameActionPerformed(evt);
-            }
-        });
         overviewLastname.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 overviewLastnameKeyPressed(evt);
@@ -191,19 +182,11 @@ public class PatronOverviewUI extends UI {
         );
     }// </editor-fold>//GEN-END:initComponents
     
-    private void overviewLastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overviewLastnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_overviewLastnameActionPerformed
-
-    private void overviewFirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overviewFirstnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_overviewFirstnameActionPerformed
-
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         Patron loggedIn = this.getCardLayoutMain().getLoggedIn();
         //Avsluta om inte inloggad
         if(loggedIn == null){
-            JOptionPane.showMessageDialog(null, "Fel: Inte inloggad. Programmet avslutas");
+            UI.showErrorDialog("Inte inloggad. Programmet avslutas");
             System.exit(0);
         }
         
@@ -245,32 +228,39 @@ public class PatronOverviewUI extends UI {
             //overviewDob.setEnabled(true);
         }else{
             //Save uppgifter when button clicked
-            Patron loggedIn = this.getCardLayoutMain().getLoggedIn();
-            overviewChangeButton.setText("Ändra uppgifter");
-            //TODO: Save patron
-            this.getCardLayoutMain().getEntityManager().getTransaction().begin();
-            overviewFirstname.setEnabled(false);
-            loggedIn.setFirstName(overviewFirstname.getText());
-            
-            overviewLastname.setEnabled(false);
-            loggedIn.setLastName(overviewLastname.getText());
-            
-            overviewEmail.setEnabled(false);
-            loggedIn.setEmail(overviewEmail.getText());
-            
-            overviewTele.setEnabled(false);
-            loggedIn.setTelnr(overviewTele.getText());
-            
-            //overviewDob.setEnabled(false);
-            //loggedIn.setDob(overviewFirstname.getText());
-            
-            try {
-                this.getCardLayoutMain().getEntityManager().getTransaction().commit();
-            }catch (RollbackException e){
-                JOptionPane.showMessageDialog(null, "Fel: Kunde inte spara uppgifter i databasen.");
+            if(!RegexUtil.isValidEmail(overviewEmail.getText())){
+                UI.showErrorDialog("Felaktigt format på mail adress");
+            }else if(!RegexUtil.isValidFirstOrLastname(overviewFirstname.getText()) || !RegexUtil.isValidFirstOrLastname(overviewLastname.getText())){
+                UI.showErrorDialog("Felaktigt format på förnamn eller efternamn");
+            }else if(!RegexUtil.isValidTelnr(overviewTele.getText())){
+                UI.showErrorDialog("Felaktigt format på telefonnummer");
+            }else{
+                Patron loggedIn = this.getCardLayoutMain().getLoggedIn();
+                overviewChangeButton.setText("Ändra uppgifter");
+                //TODO: Save patron
+                this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+                overviewFirstname.setEnabled(false);
+                loggedIn.setFirstName(overviewFirstname.getText());
+
+                overviewLastname.setEnabled(false);
+                loggedIn.setLastName(overviewLastname.getText());
+
+                overviewEmail.setEnabled(false);
+                loggedIn.setEmail(overviewEmail.getText());
+
+                overviewTele.setEnabled(false);
+                loggedIn.setTelnr(overviewTele.getText());
+
+                //overviewDob.setEnabled(false);
+                //loggedIn.setDob(overviewFirstname.getText());
+
+                try {
+                    this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+                }catch (RollbackException e){
+                    UI.showErrorDialog("Kunde inte spara uppgifter i databasen");
+                }
             }
         }
-        
     }//GEN-LAST:event_overviewChangeButtonActionPerformed
 
 

@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "Dvd")
+@Table(name = "DVD")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dvd.findAll", query = "SELECT d FROM Dvd d")
@@ -45,7 +45,7 @@ public class Dvd implements Serializable {
     @Basic(optional = false)
     @Column(name = "prodCountry")
     private String prodCountry;
-    @JoinTable(name = "dvd_actor", joinColumns = {
+    @JoinTable(name = "DVD_Actor", joinColumns = {
         @JoinColumn(name = "DVDItembarcode", referencedColumnName = "Itembarcode")}, inverseJoinColumns = {
         @JoinColumn(name = "actorId", referencedColumnName = "actorId")})
     @ManyToMany

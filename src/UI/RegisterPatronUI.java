@@ -1,7 +1,18 @@
 package UI;
 
+import entities.Patron;
 import entities.PatronType;
+import java.awt.Component;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.RollbackException;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import utils.RegexUtil;
 
 public class RegisterPatronUI extends UI {
     /**
@@ -26,7 +37,6 @@ public class RegisterPatronUI extends UI {
         registerDobField = new javax.swing.JTextField();
         registerTelField = new javax.swing.JTextField();
         registerLastNameField = new javax.swing.JTextField();
-        registerPasswordField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -36,9 +46,11 @@ public class RegisterPatronUI extends UI {
         registerButton = new javax.swing.JButton();
         registerCancelButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        registerPasswordConfField = new javax.swing.JTextField();
         patronTypeChooser = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jLabel9 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(500, 300));
         setMinimumSize(new java.awt.Dimension(500, 300));
@@ -51,18 +63,6 @@ public class RegisterPatronUI extends UI {
         });
 
         registerDobField.setText("yyyy-mm-dd");
-
-        registerTelField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerTelFieldActionPerformed(evt);
-            }
-        });
-
-        registerPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerPasswordFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setLabelFor(registerFirstNameField);
         jLabel1.setText("Förnamn");
@@ -79,10 +79,14 @@ public class RegisterPatronUI extends UI {
         jLabel5.setLabelFor(registerTelField);
         jLabel5.setText("Telefon");
 
-        jLabel6.setLabelFor(registerPasswordField);
         jLabel6.setText("Lösenord");
 
         registerButton.setText("Registrera");
+        registerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerButtonActionPerformed(evt);
+            }
+        });
 
         registerCancelButton.setText("Avbryt");
         registerCancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -97,51 +101,65 @@ public class RegisterPatronUI extends UI {
 
         jLabel8.setText("Roll");
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setText("Registrera låntagare");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(125, 125, 125)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel3))
+                            .addGap(108, 108, 108)
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                                .addComponent(registerDobField))
+                            .addGap(159, 159, 159)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(121, 121, 121)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(registerFirstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(84, 84, 84)
-                        .addComponent(registerLastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(135, 135, 135)
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(registerEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(registerFirstNameField)
+                            .addComponent(registerEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(74, 74, 74)
-                        .addComponent(registerTelField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(registerTelField)
+                            .addComponent(registerLastNameField)
+                            .addComponent(patronTypeChooser, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(registerButton)
                         .addGap(80, 80, 80)
-                        .addComponent(registerCancelButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registerDobField, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(registerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(registerPasswordConfField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(patronTypeChooser, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(registerCancelButton)
+                            .addComponent(jLabel7))))
+                .addGap(127, 127, 127))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel4))
@@ -158,49 +176,99 @@ public class RegisterPatronUI extends UI {
                     .addComponent(registerEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(registerTelField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel8))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel3))
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerDobField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(patronTypeChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registerPasswordConfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(registerCancelButton)
-                    .addComponent(registerButton)))
+                    .addComponent(registerButton))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void registerTelFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerTelFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registerTelFieldActionPerformed
-
-    private void registerPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registerPasswordFieldActionPerformed
 
     private void registerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerCancelButtonActionPerformed
         this.switchToCard(LoginUI.class);
     }//GEN-LAST:event_registerCancelButtonActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //Screen shown
+        //JPanel shown
+        
+        //Reset all fields (except dob)
+        Component[] components = this.getComponents();
+        for(Component currentComp : components){
+            if(currentComp instanceof JTextField){
+                JTextField field;
+                field = (JTextField) currentComp;
+                if(currentComp == registerDobField){
+                    field.setText("yyyy-mm-dd");
+                }else{
+                    field.setText("");
+                }
+            }     
+        }
+        //Setup all PatronTypes in comboBox
         List<PatronType> patronTypes = this.getCardLayoutMain().getEntityManager().createNamedQuery("PatronType.findAll")
                 .getResultList();
         patronTypeChooser.removeAllItems();
         for(PatronType current : patronTypes){
-            patronTypeChooser.addItem(current.getName());
+            patronTypeChooser.addItem(current);
         }
     }//GEN-LAST:event_formComponentShown
+
+    private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
+        //Check password match and is longer than 5 TODO: Use regexutil
+        if(jPasswordField1.getPassword() != jPasswordField2.getPassword() && jPasswordField1.getPassword().length < 6){
+            UI.showErrorDialog("Lösenord matchar inte eller är kortare än 6 tecken");
+        }else if(!RegexUtil.isValidEmail(registerEmailField.getText())){
+            UI.showErrorDialog("Felaktigt format på mail adress");
+        }else if(!RegexUtil.isValidFirstOrLastname(registerFirstNameField.getText()) || !RegexUtil.isValidFirstOrLastname(registerLastNameField.getText())){
+            UI.showErrorDialog("Felaktigt format på förnamn eller efternamn");
+        }else if(!RegexUtil.isValidTelnr(registerTelField.getText())){
+            UI.showErrorDialog("Felaktigt format på telefonnummer");
+        }else{
+            Patron newPatron = new Patron();
+            newPatron.setFirstName(registerFirstNameField.getText());
+            newPatron.setLastName(registerLastNameField.getText());
+            newPatron.setEmail(registerEmailField.getText());
+            newPatron.setTelnr(registerTelField.getText());
+            newPatron.setPassword(new String(jPasswordField1.getPassword()));
+            
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date newDate;
+            try {
+                newDate = format.parse(registerDobField.getText());
+            } catch (ParseException ex) {
+                UI.showErrorDialog("Felaktigt format på födelsedag");
+                return;
+            }
+            newPatron.setDob(newDate);
+            newPatron.setCreated(new Date());
+            newPatron.setPatronTypeId((PatronType) patronTypeChooser.getSelectedItem());
+            try{
+                //Save to database
+                this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+                this.getCardLayoutMain().getEntityManager().persist(newPatron);
+                this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+                UI.showInfoDialog("Låntagare sparad");
+                this.switchToCard(LoginUI.class);
+            }catch (RollbackException | IllegalStateException e){
+                UI.showErrorDialog("Det gick inte att spara ny låntagare");
+            }
+        }
+    }//GEN-LAST:event_registerButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -212,6 +280,9 @@ public class RegisterPatronUI extends UI {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JComboBox patronTypeChooser;
     private javax.swing.JButton registerButton;
     private javax.swing.JButton registerCancelButton;
@@ -219,8 +290,6 @@ public class RegisterPatronUI extends UI {
     private javax.swing.JTextField registerEmailField;
     private javax.swing.JTextField registerFirstNameField;
     private javax.swing.JTextField registerLastNameField;
-    private javax.swing.JTextField registerPasswordConfField;
-    private javax.swing.JTextField registerPasswordField;
     private javax.swing.JTextField registerTelField;
     // End of variables declaration//GEN-END:variables
 }
