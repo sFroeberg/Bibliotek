@@ -110,11 +110,11 @@ fabric.properties
 hs_err_pid*
 
 ### NetBeans ###
-**/nbproject/**
+nbproject/
 build/
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
-/build.xml
-/manifest.mf
+build.xml
+manifest.mf
