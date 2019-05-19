@@ -5,10 +5,13 @@
  */
 package UI;
 
+import entities.Author;
 import entities.Dvd;
 import entities.Item;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -39,12 +42,12 @@ public class ItemSearchUI extends UI {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        releaseYearSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        authorSearch = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         itemSelect = new javax.swing.JComboBox<>();
@@ -92,18 +95,28 @@ public class ItemSearchUI extends UI {
             }
         });
 
-        jButton2.setText("Search");
+        releaseYearSearch.setText("Search");
+        releaseYearSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                releaseYearSearchActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Release Year");
 
-        jButton3.setText("Search");
+        authorSearch.setText("Search");
+        authorSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                authorSearchActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Search");
 
         jButton5.setText("Search");
 
         itemSelect.setEditable(true);
-        itemSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DVD", "Bok" }));
+        itemSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DVD", "Book" }));
         itemSelect.setToolTipText("");
         itemSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,9 +166,7 @@ public class ItemSearchUI extends UI {
                                                 .addGap(52, 52, 52)
                                                 .addComponent(jLabel8))
                                             .addComponent(jLabel6))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel7)))))
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTextField4)
@@ -166,8 +177,8 @@ public class ItemSearchUI extends UI {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(titleSearch)
-                                .addComponent(jButton2)
-                                .addComponent(jButton3)
+                                .addComponent(releaseYearSearch)
+                                .addComponent(authorSearch)
                                 .addComponent(jButton4)
                                 .addComponent(jButton5)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -200,12 +211,12 @@ public class ItemSearchUI extends UI {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2)
+                            .addComponent(releaseYearSearch)
                             .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3)
+                            .addComponent(authorSearch)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -265,13 +276,13 @@ public class ItemSearchUI extends UI {
                     jTextArea1.setText(current.getTitle()+ "       DVD");
                 }  
             }
-        }else if(selectedItem.equals("Bok")){
+        }else if(selectedItem.equals("Book")){
             String title = jTextField1.getText();
             EntityManager em = this.getCardLayoutMain().getEntityManager();
             
-            List<Item> bokList = em.createNamedQuery("Item.findByTitle").setParameter("title", jTextField1.getText()).getResultList();
+            List<Item> bookList = em.createNamedQuery("Item.findByTitle").setParameter("title", jTextField1.getText()).getResultList();
             
-            for (Item current: bokList){
+            for (Item current: bookList){
                 if(current.getBook() != null){
                     jTextArea1.setText(current.getTitle()+ "       Book");
                 }  
@@ -280,6 +291,39 @@ public class ItemSearchUI extends UI {
         }
         
     }//GEN-LAST:event_titleSearchActionPerformed
+
+    private void releaseYearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_releaseYearSearchActionPerformed
+        jTextArea1.setText("");
+        String releaseyear = jTextField2.getText();
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        
+        List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", jTextField2.getText()).getResultList();
+        
+        for (Item current: itemList){
+            jTextArea1.setText(current.getTitle());
+        }
+    }//GEN-LAST:event_releaseYearSearchActionPerformed
+
+    private void authorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorSearchActionPerformed
+         jTextArea1.setText("");
+         String selectedItem = (String)itemSelect.getSelectedItem();
+         String authorDirector = jTextField3.getText();
+         EntityManager em = this.getCardLayoutMain().getEntityManager();
+         
+         if(selectedItem.equals("DVD")){
+             List<Dvd> dvdList = em.createNamedQuery("Dvd.findByDirector").setParameter("director", jTextField3.getText()).getResultList();
+             for(Dvd current : dvdList){
+                 jTextArea1.setText(current.getItem().getTitle());
+             }
+         }else if(selectedItem.equals("Book")){
+             List<Author> bookAuthorList = em.createNamedQuery("Author.findByLastName").setParameter("lastName", jTextField3.getText()).getResultList();
+             for(Author current : bookAuthorList){
+                 jTextArea1.setText(current.getBookCollection().toString());
+             }
+             
+         }
+         
+    }//GEN-LAST:event_authorSearchActionPerformed
 
     
     
@@ -292,9 +336,8 @@ public class ItemSearchUI extends UI {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton authorSearch;
     private javax.swing.JComboBox<String> itemSelect;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -313,6 +356,7 @@ public class ItemSearchUI extends UI {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JButton releaseYearSearch;
     private javax.swing.JButton titleSearch;
     // End of variables declaration//GEN-END:variables
 }
