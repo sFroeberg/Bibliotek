@@ -156,7 +156,7 @@ public class LoginUI extends UI {
                     getResultList();
             if(loginEmp.size() == 1){
                 this.getCardLayoutMain().setEmpLoggedIn(loginEmp.get(0));
-                this.switchToCard(PatronOverviewUI.class);
+                this.switchToCard(EmployeeStartUI.class);
             }else{
                 UI.showInfoDialog("Wrong email or password");
             }
@@ -171,14 +171,7 @@ public class LoginUI extends UI {
     }//GEN-LAST:event_formComponentHidden
 
     private void loginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCancelButtonActionPerformed
-        /*List<Dvd> dvds = this.getCardLayoutMain().getEntityManager().createNamedQuery("Dvd.findByItembarcode").setParameter("itembarcode", "123").getResultList();
-        System.out.println(dvds.get(0).getActorCollection().size());
-        List<Actor> actors = (List<Actor>) dvds.get(0).getActorCollection();
-        for(Actor curr : actors){
-            System.out.println(curr.getFullName());
-        }
-        System.out.println(actors.get(0).getDvdCollection().toString());
-        this.switchToCard(RegisterPatronUI.class);*/
+        this.switchToCard(StartPageUI.class);
     }//GEN-LAST:event_loginCancelButtonActionPerformed
 
     private void patronBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patronBtnActionPerformed

@@ -27,6 +27,11 @@ public class CardLayoutMain {
         uiClasses.add(new ActorSearch(this));
         uiClasses.add(new ItemSearchUI(this));
         uiClasses.add(new LoginUI(this));
+        uiClasses.add(new StartPageUI(this));
+        uiClasses.add(new LoginUI(this));
+        uiClasses.add(new EmployeeStartUI(this));
+        uiClasses.add(new ItemSearchUI(this));
+        uiClasses.add(new ActorSearch(this));
         uiClasses.add(new RegisterPatronUI(this));
         uiClasses.add(new PatronOverviewUI(this));
         
