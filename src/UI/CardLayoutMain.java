@@ -14,16 +14,10 @@ public class CardLayoutMain {
     private Patron patronLoggedIn; 
     private Employee empLoggedIn;
     private EntityManager entityManager;
-    /* TODO: Remove from prod
-    private static CardLayoutMain cardLayoutInstance;
-    */
     public CardLayoutMain(){
         super();
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "BibliotekPU" );
         this.entityManager = emfactory.createEntityManager( );
-        /* TODO: Remove from prod
-        CardLayoutMain.cardLayoutInstance = this;
-        */
     }
     public void addComponentToPane(Container pane) { 
         //Create the panel that contains the "cards".
@@ -52,7 +46,7 @@ public class CardLayoutMain {
     }
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("Bibliotek system");
+        JFrame frame = new JFrame("Library system");
         //Set custom icon
         ImageIcon img = new ImageIcon("resources/book-icon.png");
         frame.setIconImage(img.getImage());
@@ -87,11 +81,6 @@ public class CardLayoutMain {
         this.empLoggedIn = empLoggedIn;
     }
     
-    /* TODO: Remove from prod
-    public static CardLayoutMain getCardLayoutInstance() {
-        return cardLayoutInstance;
-    }
-    */
     public JPanel getCards() {
         return cards;
     }

@@ -6,8 +6,15 @@
 package UI;
 
 import entities.Item;
+import entities.ItemLoan;
+import entities.ItemLoanPK;
+import entities.Loan;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.RollbackException;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 
 /**
  *
@@ -39,7 +46,7 @@ public class CreateLoanUI extends UI {
         addItemBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         itemsList = new javax.swing.JList();
-        jButton1 = new javax.swing.JButton();
+        createLoanBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
@@ -57,16 +64,21 @@ public class CreateLoanUI extends UI {
             }
         });
 
+        itemsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemsListMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(itemsList);
 
-        jButton1.setText("Create loan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        createLoanBtn.setText("Create loan");
+        createLoanBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                createLoanBtnActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Items to loan");
+        jLabel3.setText("Items to loan (double click to remove item)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,7 +91,7 @@ public class CreateLoanUI extends UI {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(224, 224, 224)
-                        .addComponent(jButton1))
+                        .addComponent(createLoanBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +120,7 @@ public class CreateLoanUI extends UI {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addItemBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(createLoanBtn)
                         .addGap(109, 109, 109))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,9 +131,52 @@ public class CreateLoanUI extends UI {
         model = new DefaultListModel<>();
         itemsList.setModel(model);
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void createLoanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createLoanBtnActionPerformed
+        ArrayList<Item> itemsToLoan = new ArrayList<Item>();
+        int i = 0;
+        while(i < model.getSize()){
+            itemsToLoan.add(model.getElementAt(i));
+            i++;
+        }
+        
+        Loan loan = new Loan();
+        loan.setPatronId(this.getCardLayoutMain().getPatronLoggedIn());
+        loan.setCreated(new Date());
+
+        try{
+            //Save to database
+            //Loan
+            this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+            this.getCardLayoutMain().getEntityManager().persist(loan);
+            this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+        }catch (RollbackException | IllegalStateException e){
+            UI.showErrorDialog("Could not save loan to database");
+        }
+        
+        //Set itemloans in database
+        ArrayList<ItemLoan> itemLoans = new ArrayList<ItemLoan>();
+        for(Item current : itemsToLoan){
+            if(current.isOnLoan()){
+                UI.showErrorDialog(current.getTitle()+" is alreay on loan. Remove it");
+                return;
+            }else{
+                ItemLoan itemLoan = new ItemLoan();
+                ItemLoanPK itemLoanPK = new ItemLoanPK(current.getBarcode(),loan.getLoanId());
+                itemLoan.setItemLoanPK(itemLoanPK);
+                itemLoans.add(itemLoan);
+            }
+        }
+        
+        try{
+            //Save to database
+            this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+            loan.setItemLoanCollection(itemLoans);
+            this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+            UI.showInfoDialog("Loan saved!");
+        }catch (RollbackException | IllegalStateException e){
+            UI.showErrorDialog("Could not save loan to database");
+        }
+    }//GEN-LAST:event_createLoanBtnActionPerformed
 
     private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed
         List<Item> itemToAdd = this.getCardLayoutMain().getEntityManager().createNamedQuery("Item.findByBarcode").
@@ -132,7 +187,7 @@ public class CreateLoanUI extends UI {
             if(item.isOnLoan()){
                 UI.showErrorDialog("This is object is alreay on loan");
             }else{
-                model.addElement(item.getTitle());
+                model.addElement(item);
             }
             
         }else{
@@ -140,16 +195,25 @@ public class CreateLoanUI extends UI {
         }
     }//GEN-LAST:event_addItemBtnActionPerformed
 
+    private void itemsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemsListMouseClicked
+        //Remove element when double clicked on
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            model.removeElementAt(index);
+        }
+    }//GEN-LAST:event_itemsListMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemBtn;
+    private javax.swing.JButton createLoanBtn;
     private javax.swing.JTextField itemBarCodeField;
     private javax.swing.JList itemsList;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-    DefaultListModel<String> model = new DefaultListModel<>();
+    DefaultListModel<Item> model = new DefaultListModel<>();
 }

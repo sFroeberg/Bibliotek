@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JTextField;
 
 public class AddDVDUI extends UI {
@@ -99,6 +100,11 @@ public class AddDVDUI extends UI {
 
         jLabel9.setText("Production country");
 
+        actorsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                actorsListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(actorsList);
 
         jLabel10.setText("Add actors");
@@ -322,6 +328,14 @@ public class AddDVDUI extends UI {
                 UI.showErrorDialog("Could not save DVD to database");
             }
     }//GEN-LAST:event_saveDVDBtnActionPerformed
+
+    private void actorsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_actorsListMouseClicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            modelActor.removeElementAt(index);
+        }
+    }//GEN-LAST:event_actorsListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
