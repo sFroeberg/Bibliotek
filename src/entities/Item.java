@@ -2,6 +2,7 @@ package entities;
 
 import UI.CardLayoutMain;
 import java.io.Serializable;
+import java.time.Year;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -49,8 +50,7 @@ public class Item implements Serializable {
     private String description;
     @Basic(optional = false)
     @Column(name = "releaseYear")
-    @Temporal(TemporalType.DATE)
-    private Date releaseYear;
+    private String releaseYear;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
     private Collection<ItemLoan> itemLoanCollection;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
@@ -67,7 +67,7 @@ public class Item implements Serializable {
         this.barcode = barcode;
     }
 
-    public Item(String barcode, String title, String location, String description, Date releaseYear) {
+    public Item(String barcode, String title, String location, String description, String releaseYear) {
         this.barcode = barcode;
         this.title = title;
         this.location = location;
@@ -107,11 +107,11 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Date getReleaseYear() {
+    public String getReleaseYear() {
         return releaseYear;
     }
 
-    public void setReleaseYear(Date releaseYear) {
+    public void setReleaseYear(String releaseYear) {
         this.releaseYear = releaseYear;
     }
 
@@ -180,7 +180,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ barcode=" + barcode + " ]";
+        return this.getTitle();
     }
     
 }

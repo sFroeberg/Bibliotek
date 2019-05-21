@@ -70,6 +70,11 @@ public class EmployeeStartUI extends UI {
         });
 
         addDvdBtn.setText("Add new DVD");
+        addDvdBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDvdBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -128,6 +133,10 @@ public class EmployeeStartUI extends UI {
     private void addBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBookBtnActionPerformed
         this.switchToCard(AddBookUI.class);
     }//GEN-LAST:event_addBookBtnActionPerformed
+
+    private void addDvdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDvdBtnActionPerformed
+        this.switchToCard(AddDVDUI.class);
+    }//GEN-LAST:event_addDvdBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
