@@ -6,6 +6,7 @@
 package UI;
 
 import entities.Author;
+import entities.Book;
 import entities.Dvd;
 import entities.Item;
 import java.util.Date;
@@ -48,8 +49,8 @@ public class ItemSearchUI extends UI {
         jTextField4 = new javax.swing.JTextField();
         jTextField5 = new javax.swing.JTextField();
         authorSearch = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        genreSearch = new javax.swing.JButton();
+        isbnSearch = new javax.swing.JButton();
         itemSelect = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -111,9 +112,19 @@ public class ItemSearchUI extends UI {
             }
         });
 
-        jButton4.setText("Search");
+        genreSearch.setText("Search");
+        genreSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genreSearchActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Search");
+        isbnSearch.setText("Search");
+        isbnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                isbnSearchActionPerformed(evt);
+            }
+        });
 
         itemSelect.setEditable(true);
         itemSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DVD", "Book" }));
@@ -179,8 +190,8 @@ public class ItemSearchUI extends UI {
                                 .addComponent(titleSearch)
                                 .addComponent(releaseYearSearch)
                                 .addComponent(authorSearch)
-                                .addComponent(jButton4)
-                                .addComponent(jButton5)))
+                                .addComponent(genreSearch)
+                                .addComponent(isbnSearch)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel5)
@@ -221,12 +232,12 @@ public class ItemSearchUI extends UI {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4)
+                            .addComponent(genreSearch)
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5)
+                            .addComponent(isbnSearch)
                             .addComponent(jLabel7)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -273,7 +284,7 @@ public class ItemSearchUI extends UI {
             
             for (Item current: dvdList){
                 if(current.getDvd() != null){
-                    jTextArea1.setText(current.getTitle()+ "       DVD");
+                    jTextArea1.setText(jTextArea1.getText()+(current.getTitle()+ "       DVD")+"\n");
                 }  
             }
         }else if(selectedItem.equals("Book")){
@@ -284,12 +295,10 @@ public class ItemSearchUI extends UI {
             
             for (Item current: bookList){
                 if(current.getBook() != null){
-                    jTextArea1.setText(current.getTitle()+ "       Book");
+                    jTextArea1.setText(jTextArea1.getText()+(current.getTitle()+ "       Book")+"\n");
                 }  
             }
-  
-        }
-        
+        } 
     }//GEN-LAST:event_titleSearchActionPerformed
 
     private void releaseYearSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_releaseYearSearchActionPerformed
@@ -300,7 +309,7 @@ public class ItemSearchUI extends UI {
         List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", jTextField2.getText()).getResultList();
         
         for (Item current: itemList){
-            jTextArea1.setText(current.getTitle());
+            jTextArea1.setText(jTextArea1.getText()+(current.getTitle())+"\n");
         }
     }//GEN-LAST:event_releaseYearSearchActionPerformed
 
@@ -313,33 +322,54 @@ public class ItemSearchUI extends UI {
          if(selectedItem.equals("DVD")){
              List<Dvd> dvdList = em.createNamedQuery("Dvd.findByDirector").setParameter("director", jTextField3.getText()).getResultList();
              for(Dvd current : dvdList){
-                 jTextArea1.setText(current.getItem().getTitle());
+                 jTextArea1.setText(jTextArea1.getText()+(current.getItem().getTitle())+"\n");
              }
          }else if(selectedItem.equals("Book")){
+             // Måste fixas, försöka koppla ihop authorID med item och sedan getTitle?....
              List<Author> bookAuthorList = em.createNamedQuery("Author.findByLastName").setParameter("lastName", jTextField3.getText()).getResultList();
              for(Author current : bookAuthorList){
-                 jTextArea1.setText(current.getBookCollection().toString());
-             }
-             
+                 jTextArea1.setText(jTextArea1.getText()+(current.getBookCollection().toString())+"\n");
+             } 
          }
-         
     }//GEN-LAST:event_authorSearchActionPerformed
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    private void genreSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genreSearchActionPerformed
+        jTextArea1.setText("");
+        //String genreType = jTextField4.getText(); helt oviktig rad egentligen?
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        String selectedItem = (String)itemSelect.getSelectedItem();
+        if(selectedItem.equals("DVD")){
+            List<Dvd> dvdList = em.createNamedQuery("Dvd.findByGenre").setParameter("genre", jTextField4.getText()).getResultList();
+            for(Dvd current : dvdList){
+                 jTextArea1.setText(jTextArea1.getText()+(current.getItem().getTitle())+"\n");
+            }
+        }else if(selectedItem.equals("Book")){
+            List<Book> bookList = em.createNamedQuery("Book.findAll").getResultList();
+            for(Book current : bookList){
+                List<Book> asd = (List)current.getTagCollection();
+                for(Book curr: asd){
+                jTextArea1.setText(jTextArea1.getText()+curr.getItem().getTitle()+'\n');
+                }
+            }
+        }
+    }//GEN-LAST:event_genreSearchActionPerformed
 
+    private void isbnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_isbnSearchActionPerformed
+        jTextArea1.setText("");
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        List<Book> isbnList = em.createNamedQuery("Book.findByIsbn").setParameter("isbn", jTextField5.getText()).getResultList();
+        
+        for(Book current : isbnList){
+                 jTextArea1.setText(jTextArea1.getText()+(current.getItem().getTitle())+"\n");
+        }
+    }//GEN-LAST:event_isbnSearchActionPerformed
+ 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton authorSearch;
+    private javax.swing.JButton genreSearch;
+    private javax.swing.JButton isbnSearch;
     private javax.swing.JComboBox<String> itemSelect;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
