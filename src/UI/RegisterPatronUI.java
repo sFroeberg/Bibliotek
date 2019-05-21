@@ -65,47 +65,48 @@ public class RegisterPatronUI extends UI {
         registerDobField.setText("yyyy-mm-dd");
 
         jLabel1.setLabelFor(registerFirstNameField);
-        jLabel1.setText("Förnamn");
+        jLabel1.setText("Firstname");
 
         jLabel2.setLabelFor(registerEmailField);
         jLabel2.setText("E-mail");
 
         jLabel3.setLabelFor(registerDobField);
-        jLabel3.setText("Födelsedag");
+        jLabel3.setText("Birthday");
 
         jLabel4.setLabelFor(registerLastNameField);
-        jLabel4.setText("Efternamn");
+        jLabel4.setText("Lastname");
 
         jLabel5.setLabelFor(registerTelField);
-        jLabel5.setText("Telefon");
+        jLabel5.setText("Telephone");
 
-        jLabel6.setText("Lösenord");
+        jLabel6.setText("Password");
 
-        registerButton.setText("Registrera");
+        registerButton.setText("Register");
         registerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerButtonActionPerformed(evt);
             }
         });
 
-        registerCancelButton.setText("Avbryt");
+        registerCancelButton.setText("Cancel");
         registerCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerCancelButtonActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Bekräfta lösenord");
-        patronTypeChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel7.setText("Confirm password");
+
         patronTypeChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patronTypeChooserActionPerformed(evt);
             }
         });
-        jLabel8.setText("Roll");
+
+        jLabel8.setText("Role");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel9.setText("Registrera låntagare");
+        jLabel9.setText("Register new patron");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -189,7 +190,7 @@ public class RegisterPatronUI extends UI {
     }// </editor-fold>//GEN-END:initComponents
 
     private void registerCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerCancelButtonActionPerformed
-        this.switchToCard(LoginUI.class);
+        this.switchToCard(EmployeeStartUI.class);
     }//GEN-LAST:event_registerCancelButtonActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
@@ -220,13 +221,13 @@ public class RegisterPatronUI extends UI {
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
         //Check password match and is longer than 5 TODO: Use regexutil
         if(jPasswordField1.getPassword() != jPasswordField2.getPassword() && jPasswordField1.getPassword().length < 6){
-            UI.showErrorDialog("Lösenord matchar inte eller är kortare än 6 tecken");
+            UI.showErrorDialog("Password does not match or is less then 6 characters");
         }else if(!RegexUtil.isValidEmail(registerEmailField.getText())){
-            UI.showErrorDialog("Felaktigt format på mail adress");
+            UI.showErrorDialog("Wrong email format");
         }else if(!RegexUtil.isValidFirstOrLastname(registerFirstNameField.getText()) || !RegexUtil.isValidFirstOrLastname(registerLastNameField.getText())){
-            UI.showErrorDialog("Felaktigt format på förnamn eller efternamn");
+            UI.showErrorDialog("Wrong firstname or lastname format");
         }else if(!RegexUtil.isValidTelnr(registerTelField.getText())){
-            UI.showErrorDialog("Felaktigt format på telefonnummer");
+            UI.showErrorDialog("Wrong telephone format");
         }else{
             Patron newPatron = new Patron();
             newPatron.setFirstName(registerFirstNameField.getText());
@@ -240,7 +241,7 @@ public class RegisterPatronUI extends UI {
             try {
                 newDate = format.parse(registerDobField.getText());
             } catch (ParseException ex) {
-                UI.showErrorDialog("Felaktigt format på födelsedag");
+                UI.showErrorDialog("Wrong birthday format");
                 return;
             }
             newPatron.setDob(newDate);
@@ -251,10 +252,10 @@ public class RegisterPatronUI extends UI {
                 this.getCardLayoutMain().getEntityManager().getTransaction().begin();
                 this.getCardLayoutMain().getEntityManager().persist(newPatron);
                 this.getCardLayoutMain().getEntityManager().getTransaction().commit();
-                UI.showInfoDialog("Låntagare sparad");
-                this.switchToCard(LoginUI.class);
+                UI.showInfoDialog("Patron saved!");
+                this.switchToCard(EmployeeStartUI.class);
             }catch (RollbackException | IllegalStateException e){
-                UI.showErrorDialog("Det gick inte att spara ny låntagare");
+                UI.showErrorDialog("Could not save patron to database");
             }
         }
     }//GEN-LAST:event_registerButtonActionPerformed

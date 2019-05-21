@@ -57,7 +57,7 @@
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="30" max="32767" attributes="0"/>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="employeeBtn" min="-2" max="-2" attributes="0"/>
                           <Component id="patronBtn" min="-2" max="-2" attributes="0"/>
@@ -113,13 +113,13 @@
         <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="loginPasswordField"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="L&#xf6;senord"/>
+        <Property name="text" type="java.lang.String" value="Password"/>
         <Property name="verticalAlignment" type="int" value="1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="loginButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Logga in"/>
+        <Property name="text" type="java.lang.String" value="Login"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginButtonActionPerformed"/>
@@ -129,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="loginCancelButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Avbryt"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loginCancelButtonActionPerformed"/>
@@ -138,7 +138,7 @@
     <Component class="javax.swing.JRadioButton" name="patronBtn">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="L&#xe5;ntagare"/>
+        <Property name="text" type="java.lang.String" value="Patron"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="patronBtnActionPerformed"/>
@@ -146,7 +146,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="employeeBtn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Personal"/>
+        <Property name="text" type="java.lang.String" value="Employee"/>
       </Properties>
     </Component>
   </SubComponents>

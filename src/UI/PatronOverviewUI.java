@@ -54,11 +54,11 @@ public class PatronOverviewUI extends UI {
             }
         });
 
-        jLabel1.setText("Förnamn");
+        jLabel1.setText("Firstname");
 
         overviewFirstname.setEnabled(false);
 
-        jLabel2.setText("Efternamn");
+        jLabel2.setText("Lastname");
 
         overviewLastname.setEnabled(false);
         overviewLastname.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -71,15 +71,15 @@ public class PatronOverviewUI extends UI {
 
         overviewEmail.setEnabled(false);
 
-        jLabel4.setText("Telefon");
+        jLabel4.setText("Telephone");
 
         overviewTele.setEnabled(false);
 
-        jLabel5.setText("Födelsedag");
+        jLabel5.setText("Birthday");
 
         overviewDob.setEnabled(false);
 
-        jLabel6.setText("Lån");
+        jLabel6.setText("Loans");
 
         jList1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -95,11 +95,11 @@ public class PatronOverviewUI extends UI {
         });
         jScrollPane1.setViewportView(jList2);
 
-        jLabel7.setText("Reservationer");
+        jLabel7.setText("Reservations");
 
         overviewFullName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 
-        overviewChangeButton.setText("Ändra uppgifter");
+        overviewChangeButton.setText("Change ");
         overviewChangeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 overviewChangeButtonActionPerformed(evt);
@@ -183,10 +183,10 @@ public class PatronOverviewUI extends UI {
     }// </editor-fold>//GEN-END:initComponents
     
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getLoggedIn();
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
         //Avsluta om inte inloggad
         if(loggedIn == null){
-            UI.showErrorDialog("Inte inloggad. Programmet avslutas");
+            UI.showErrorDialog("Not logged in!");
             System.exit(0);
         }
         
@@ -216,8 +216,8 @@ public class PatronOverviewUI extends UI {
     }//GEN-LAST:event_overviewLastnameKeyPressed
 
     private void overviewChangeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overviewChangeButtonActionPerformed
-        if(overviewChangeButton.getText().equals("Ändra uppgifter")){
-            overviewChangeButton.setText("Spara uppgifter");
+        if(overviewChangeButton.getText().equals("Change")){
+            overviewChangeButton.setText("Save");
             
             //Enable editing when button pushed
             overviewFirstname.setEnabled(true);
@@ -229,14 +229,14 @@ public class PatronOverviewUI extends UI {
         }else{
             //Save uppgifter when button clicked
             if(!RegexUtil.isValidEmail(overviewEmail.getText())){
-                UI.showErrorDialog("Felaktigt format på mail adress");
+                UI.showErrorDialog("Wrong email format");
             }else if(!RegexUtil.isValidFirstOrLastname(overviewFirstname.getText()) || !RegexUtil.isValidFirstOrLastname(overviewLastname.getText())){
-                UI.showErrorDialog("Felaktigt format på förnamn eller efternamn");
+                UI.showErrorDialog("Wrongt firstname or lastname format");
             }else if(!RegexUtil.isValidTelnr(overviewTele.getText())){
-                UI.showErrorDialog("Felaktigt format på telefonnummer");
+                UI.showErrorDialog("Wrong telephone format");
             }else{
-                Patron loggedIn = this.getCardLayoutMain().getLoggedIn();
-                overviewChangeButton.setText("Ändra uppgifter");
+                Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+                overviewChangeButton.setText("Change");
                 //TODO: Save patron
                 this.getCardLayoutMain().getEntityManager().getTransaction().begin();
                 overviewFirstname.setEnabled(false);
@@ -257,7 +257,7 @@ public class PatronOverviewUI extends UI {
                 try {
                     this.getCardLayoutMain().getEntityManager().getTransaction().commit();
                 }catch (RollbackException e){
-                    UI.showErrorDialog("Kunde inte spara uppgifter i databasen");
+                    UI.showErrorDialog("Could not save to database");
                 }
             }
         }

@@ -2,6 +2,7 @@ package UI;
 
 import entities.Actor;
 import entities.Dvd;
+import entities.Employee;
 import entities.Patron;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -53,17 +54,17 @@ public class LoginUI extends UI {
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setLabelFor(loginPasswordField);
-        jLabel2.setText("Lösenord");
+        jLabel2.setText("Password");
         jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        loginButton.setText("Logga in");
+        loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
             }
         });
 
-        loginCancelButton.setText("Avbryt");
+        loginCancelButton.setText("Cancel");
         loginCancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginCancelButtonActionPerformed(evt);
@@ -71,14 +72,14 @@ public class LoginUI extends UI {
         });
 
         patronBtn.setSelected(true);
-        patronBtn.setText("Låntagare");
+        patronBtn.setText("Patron");
         patronBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 patronBtnActionPerformed(evt);
             }
         });
 
-        employeeBtn.setText("Personal");
+        employeeBtn.setText("Employee");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -102,7 +103,7 @@ public class LoginUI extends UI {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(61, 61, 61)
                                 .addComponent(jLabel2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(employeeBtn)
                             .addComponent(patronBtn))))
@@ -135,18 +136,32 @@ public class LoginUI extends UI {
         buttonGroup1.add(employeeBtn);
     }
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String password = new String(loginPasswordField.getPassword());
-        List<Patron> loginPatron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByEmailAndPassword").
-                setParameter("email", loginEmailField.getText()).
-                setParameter("password", password).
-                getResultList();
-        if(loginPatron.size() == 1){
-            System.out.println("Login sucess");
-            this.getCardLayoutMain().setLoggedIn(loginPatron.get(0));
-            this.switchToCard(PatronOverviewUI.class);
-        }else{
-            System.out.println("Login failed");
+        if(patronBtn.isSelected()){
+            String password = new String(loginPasswordField.getPassword());
+            List<Patron> loginPatron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByEmailAndPassword").
+                    setParameter("email", loginEmailField.getText()).
+                    setParameter("password", password).
+                    getResultList();
+            if(loginPatron.size() == 1){
+                this.getCardLayoutMain().setPatronLoggedIn(loginPatron.get(0));
+                this.switchToCard(PatronOverviewUI.class);
+            }else{
+                UI.showInfoDialog("Wrong email or password");
+            }
+        }else if(employeeBtn.isSelected()){
+            String password = new String(loginPasswordField.getPassword());
+            List<Employee> loginEmp = this.getCardLayoutMain().getEntityManager().createNamedQuery("Employee.findByEmailAndPassword").
+                    setParameter("email", loginEmailField.getText()).
+                    setParameter("password", password).
+                    getResultList();
+            if(loginEmp.size() == 1){
+                this.getCardLayoutMain().setEmpLoggedIn(loginEmp.get(0));
+                this.switchToCard(PatronOverviewUI.class);
+            }else{
+                UI.showInfoDialog("Wrong email or password");
+            }
         }
+        
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden

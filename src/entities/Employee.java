@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Employee.findByEmployeeId", query = "SELECT e FROM Employee e WHERE e.employeeId = :employeeId")
     , @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName")
     , @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName")
+    , @NamedQuery(name = "Employee.findByEmailAndPassword", query = "SELECT e FROM Employee e WHERE e.email = :email AND e.password = :password")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")})
 public class Employee implements Serializable {
 
@@ -38,6 +39,9 @@ public class Employee implements Serializable {
     @Basic(optional = false)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @Column(name = "password")
+    private String password;
 
     public Employee() {
     }
@@ -84,7 +88,19 @@ public class Employee implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String getFullName(){
+        return this.firstName +" "+ this.lastName;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

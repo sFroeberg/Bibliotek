@@ -1,5 +1,6 @@
 package UI;
 
+import entities.Employee;
 import entities.Patron;
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +11,8 @@ import javax.swing.*;
  
 public class CardLayoutMain {
     private JPanel cards; //a panel that uses CardLayout
-    private Patron loggedIn; 
+    private Patron patronLoggedIn; 
+    private Employee empLoggedIn;
     private EntityManager entityManager;
     public CardLayoutMain(){
         super();
@@ -54,13 +56,23 @@ public class CardLayoutMain {
         
     }
 
-    public Patron getLoggedIn(){
-        return loggedIn;
+    public Patron getPatronLoggedIn() {
+        return patronLoggedIn;
     }
 
-    public void setLoggedIn(Patron loggedIn) {
-        this.loggedIn = loggedIn;
+    public void setPatronLoggedIn(Patron patronLoggedIn) {
+        this.patronLoggedIn = patronLoggedIn;
     }
+
+    public Employee getEmpLoggedIn() {
+        return empLoggedIn;
+    }
+
+    public void setEmpLoggedIn(Employee empLoggedIn) {
+        this.empLoggedIn = empLoggedIn;
+    }
+
+    
 
     public JPanel getCards() {
         return cards;
