@@ -107,5 +107,9 @@ public class Author implements Serializable {
     public String toString() {
         return "entities.Author[ authorId=" + authorId + " ]";
     }
+
+    public String getFullName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

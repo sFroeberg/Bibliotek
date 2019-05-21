@@ -24,8 +24,8 @@ public class CardLayoutMain {
         cards = new JPanel(new CardLayout());
         
         ArrayList<UI> uiClasses = new ArrayList<>();
-        uiClasses.add(new ActorSearch(this));
         uiClasses.add(new ItemSearchUI(this));
+        uiClasses.add(new ActorSearch(this));
         uiClasses.add(new LoginUI(this));
         uiClasses.add(new StartPageUI(this));
         uiClasses.add(new LoginUI(this));
