@@ -108,7 +108,7 @@ public class BookType implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.BookType[ bookTypeId=" + bookTypeId + " ]";
+        return this.name;
     }
     
 }

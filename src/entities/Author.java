@@ -83,6 +83,10 @@ public class Author implements Serializable {
     public void setBookCollection(Collection<Book> bookCollection) {
         this.bookCollection = bookCollection;
     }
+    
+    public String getFullName(){
+        return this.firstName +" "+ this.lastName;
+    }
 
     @Override
     public int hashCode() {
@@ -105,7 +109,7 @@ public class Author implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Author[ authorId=" + authorId + " ]";
+        return this.getFullName();
     }
     
 }

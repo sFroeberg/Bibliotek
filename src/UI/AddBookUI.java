@@ -258,7 +258,6 @@ public class AddBookUI extends UI {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Author selAuthor = (Author) authorListCombo.getSelectedItem();
         model.addElement(selAuthor.getFullName());
-        //authorsList.setModel(model);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void saveBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBookBtnActionPerformed

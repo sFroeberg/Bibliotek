@@ -73,11 +73,6 @@ public class LoginUI extends UI {
 
         patronBtn.setSelected(true);
         patronBtn.setText("Patron");
-        patronBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                patronBtnActionPerformed(evt);
-            }
-        });
 
         employeeBtn.setText("Employee");
 
@@ -173,10 +168,6 @@ public class LoginUI extends UI {
     private void loginCancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginCancelButtonActionPerformed
         this.switchToCard(StartPageUI.class);
     }//GEN-LAST:event_loginCancelButtonActionPerformed
-
-    private void patronBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_patronBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_patronBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

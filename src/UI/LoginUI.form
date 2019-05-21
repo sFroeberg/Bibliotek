@@ -140,9 +140,6 @@
         <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Patron"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="patronBtnActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="employeeBtn">
       <Properties>

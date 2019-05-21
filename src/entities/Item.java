@@ -1,5 +1,6 @@
 package entities;
 
+import UI.CardLayoutMain;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -154,7 +155,17 @@ public class Item implements Serializable {
         hash += (barcode != null ? barcode.hashCode() : 0);
         return hash;
     }
-
+    
+    public boolean isOnLoan(){
+        Collection<ItemLoan> itemLoans = this.getItemLoanCollection();
+        for(ItemLoan current : itemLoans){
+            if(current.getReturned() == null){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Item)) {
