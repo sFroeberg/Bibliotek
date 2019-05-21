@@ -31,6 +31,9 @@ public class CardLayoutMain {
         
         //Add all views
         ArrayList<UI> uiClasses = new ArrayList<>();
+        uiClasses.add(new ItemSearchUI(this));
+        uiClasses.add(new ActorSearch(this));
+        uiClasses.add(new LoginUI(this));
         uiClasses.add(new StartPageUI(this));
         uiClasses.add(new AddBookUI(this));
         uiClasses.add(new CreateLoanUI(this));
