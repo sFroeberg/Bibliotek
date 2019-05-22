@@ -241,8 +241,12 @@ public class CreateLoanUI extends UI {
             model.removeElementAt(index);
         }
     }//GEN-LAST:event_itemsListMouseClicked
-
-
+    public void addItemsToLoan(Item item){
+ 
+        model.addElement(item);
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemBtn;
     private javax.swing.JButton createLoanBtn;
