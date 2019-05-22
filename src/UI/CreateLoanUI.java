@@ -216,7 +216,7 @@ public class CreateLoanUI extends UI {
         }
 
         UI.showInfoDialog("Loan saved!\n\nThis is your receipt:\n"+receipt);
-        
+        this.switchToCard(PatronOverviewUI.class);
     }//GEN-LAST:event_createLoanBtnActionPerformed
 
     private void addItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addItemBtnActionPerformed

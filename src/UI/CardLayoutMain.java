@@ -26,19 +26,19 @@ public class CardLayoutMain {
         
         //Add all views
         UIlist = new ArrayList<>();
-        UIlist.add(new StartPageUI(this));
-        UIlist.add(new ItemSearchUI(this));
         UIlist.add(new ActorSearch(this));
-        UIlist.add(new LoginUI(this));
-        UIlist.add(new AddDVDUI(this));
         UIlist.add(new AddBookUI(this));
+        UIlist.add(new AddDVDUI(this));
         UIlist.add(new CreateLoanUI(this));
-        UIlist.add(new LoginUI(this));
         UIlist.add(new EmployeeStartUI(this));
         UIlist.add(new ItemSearchUI(this));
-        UIlist.add(new ActorSearch(this));
-        UIlist.add(new RegisterPatronUI(this));
+        UIlist.add(new LoginUI(this));
+        UIlist.add(new PatronAdminUI(this));
+        UIlist.add(new PatronLoanUI(this));
         UIlist.add(new PatronOverviewUI(this));
+        UIlist.add(new PatronSearchUI(this));
+        UIlist.add(new RegisterPatronUI(this));
+        UIlist.add(new StartPageUI(this));
         
         for(UI current : UIlist){
             cards.add(current, current.getClass().getName());

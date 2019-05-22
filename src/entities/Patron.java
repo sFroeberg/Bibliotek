@@ -198,7 +198,7 @@ public class Patron implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Patron[ patronId=" + patronId + " ]";
+        return this.getFullName();
     }
     public String getFullName(){
         return this.firstName +" "+ this.lastName;

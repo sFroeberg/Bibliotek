@@ -9,6 +9,7 @@ import entities.Item;
 import entities.Patron;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -125,6 +126,12 @@ public class StartPageUI extends UI {
         List<Patron> patron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByPatronId").setParameter("patronId", 1).getResultList();
         this.getCardLayoutMain().setPatronLoggedIn(patron.get(0));
         this.switchToCard(CreateLoanUI.class);
+        ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
+        for(UI current : cards){
+            if(current instanceof CreateLoanUI){
+                System.out.println(current);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
