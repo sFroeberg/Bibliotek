@@ -93,7 +93,7 @@
                           <Component id="jScrollPane2" min="-2" pref="114" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="loanAddBtn" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Component id="addToLoan" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -168,7 +168,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="loanAddBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addToLoan" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="loanButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
@@ -313,7 +313,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lendItemText">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Want to lend an item?"/>
+        <Property name="text" type="java.lang.String" value="Do you want to make a loan?"/>
       </Properties>
       <Events>
         <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="lendItemTextComponentShown"/>
@@ -333,7 +333,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Item&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -363,18 +363,18 @@
             <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="toLoanListComponentShown"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Item&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="loanAddBtn">
+    <Component class="javax.swing.JButton" name="addToLoan">
       <Properties>
         <Property name="text" type="java.lang.String" value="Add to loan"/>
       </Properties>
       <Events>
-        <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="loanAddBtnComponentShown"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loanAddBtnActionPerformed"/>
+        <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="addToLoanComponentShown"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addToLoanActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="loanButton">
@@ -383,7 +383,6 @@
       </Properties>
       <Events>
         <EventHandler event="componentShown" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="loanButtonComponentShown"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loanButtonActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

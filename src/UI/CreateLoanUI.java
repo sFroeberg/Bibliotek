@@ -249,8 +249,15 @@ public class CreateLoanUI extends UI {
         //Clear Jlist on show
         model.removeAllElements();
     }//GEN-LAST:event_formComponentShown
+    
+    public ArrayList<Item> getItemsToLoad() {
+        return itemsToLoad;
+    }
 
-
+    public void addItemsToLoad(Item item) {
+        this.itemsToLoad.add(item);
+    }
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addItemBtn;
     private javax.swing.JButton createLoanBtn;
