@@ -117,6 +117,7 @@ build/
 nbbuild/
 dist/
 nbdist/
+store/
 .nb-gradle/
 build.xml
 manifest.mf
