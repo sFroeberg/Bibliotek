@@ -21,14 +21,16 @@ import java.util.logging.Logger;
  */
 public class StartPageUI extends UI {
 
+    private boolean isFirst;
     /**
      * Creates new form StartPageUI
      */
     public StartPageUI(CardLayoutMain cardLayoutMain) {
         super(cardLayoutMain);
         initComponents();
+        this.isFirst = true;
+        myPageBtn.setVisible(false);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +51,9 @@ public class StartPageUI extends UI {
         setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(600, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
@@ -81,6 +86,11 @@ public class StartPageUI extends UI {
         });
 
         myPageBtn.setText("My page");
+        myPageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myPageBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -114,9 +124,9 @@ public class StartPageUI extends UI {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -160,6 +170,13 @@ public class StartPageUI extends UI {
         }
     }//GEN-LAST:event_formComponentShown
 
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        isFirst = false;
+    }//GEN-LAST:event_formComponentHidden
+
+    private void myPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myPageBtnActionPerformed
+        this.switchToCard(PatronOverviewUI.class);
+    }//GEN-LAST:event_myPageBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

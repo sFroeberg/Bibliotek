@@ -1,8 +1,13 @@
 package UI;
 
+import entities.ItemLoan;
+import entities.Loan;
 import entities.Patron;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import utils.RegexUtil;
 
@@ -36,7 +41,7 @@ public class PatronOverviewUI extends UI {
         overviewDob = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        overviewLoanList = new javax.swing.JList();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList();
         jLabel7 = new javax.swing.JLabel();
@@ -85,18 +90,8 @@ public class PatronOverviewUI extends UI {
 
         jLabel6.setText("Loans");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(overviewLoanList);
 
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList2);
 
         jLabel7.setText("Reservations");
@@ -139,11 +134,11 @@ public class PatronOverviewUI extends UI {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(214, 214, 214)
+                .addGap(174, 174, 174)
                 .addComponent(overviewFullName)
                 .addGap(33, 33, 33)
                 .addComponent(jLabel8)
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +236,17 @@ public class PatronOverviewUI extends UI {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         overviewDob.setText(format.format(loggedIn.getDob()));
         
-        
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        DefaultListModel model = new DefaultListModel();
+        overviewLoanList.setModel(model);
+  
+       
+        List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
+        for(Loan current: asd){
+            for(ItemLoan curr: current.getItemLoanCollection()){
+                model.addElement(curr.getItem().getTitle());
+            }
+        }
         
         
         
@@ -330,7 +335,6 @@ public class PatronOverviewUI extends UI {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JList jList1;
     private javax.swing.JList jList2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -342,6 +346,7 @@ public class PatronOverviewUI extends UI {
     private javax.swing.JTextField overviewFirstname;
     private javax.swing.JLabel overviewFullName;
     private javax.swing.JTextField overviewLastname;
+    private javax.swing.JList overviewLoanList;
     private javax.swing.JTextField overviewTele;
     // End of variables declaration//GEN-END:variables
 }
