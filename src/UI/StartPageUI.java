@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -150,8 +151,11 @@ public class StartPageUI extends UI {
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        List<Patron> patron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByPatronId").setParameter("patronId", 1).getResultList();
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        List<Patron> patron = em.createNamedQuery("Patron.findByPatronId").setParameter("patronId", 1).getResultList();
         this.getCardLayoutMain().setPatronLoggedIn(patron.get(0));
+        System.out.println(this.getCardLayoutMain().getPatronLoggedIn().getLoansNotReturned());
+        /*
         this.switchToCard(CreateLoanUI.class);
         ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
         for(UI current : cards){
@@ -159,14 +163,12 @@ public class StartPageUI extends UI {
                 System.out.println(current);
             }
         }
-        
-        
-                List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
-                for(Loan current: asd){
-                    for(ItemLoan curr: current.getItemLoanCollection()){
-                        System.out.println(curr.getItem().getTitle());
-                    }
-                }
+        List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
+        for(Loan current: asd){
+            for(ItemLoan curr: current.getItemLoanCollection()){
+                System.out.println(curr.getItem().getTitle());
+            }
+        }*/
         
     }//GEN-LAST:event_jButton1ActionPerformed
 

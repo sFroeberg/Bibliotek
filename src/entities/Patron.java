@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -176,7 +177,21 @@ public class Patron implements Serializable {
     public void setReservationCollection(Collection<Reservation> reservationCollection) {
         this.reservationCollection = reservationCollection;
     }
-
+    
+    public int getLoansNotReturned() {
+        int loanCount = 0;
+        List<Loan> loans = (List<Loan>) this.loanCollection;
+        for(Loan current : loans){
+            List<ItemLoan> itemLoans = (List<ItemLoan>) current.getItemLoanCollection();
+            for(ItemLoan curr : itemLoans){
+                if(curr.getReturned() == null){
+                    loanCount++;
+                }
+            }
+        }
+        return loanCount;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

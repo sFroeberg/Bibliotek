@@ -166,12 +166,29 @@ public class CreateLoanUI extends UI {
         itemsList.setModel(model);
     }
     private void createLoanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createLoanBtnActionPerformed
+        if(model.getSize() == 0){
+            UI.showErrorDialog("There is nothing in the loan list");
+            return;
+        }
         ArrayList<Item> itemsToLoan = new ArrayList<Item>();
         int i = 0;
         while(i < model.getSize()){
             itemsToLoan.add(model.getElementAt(i));
             i++;
         }
+        
+        
+        //Check patron max loans
+        int patronMaxLoans = this.getCardLayoutMain().getPatronLoggedIn().getPatronTypeId().getMaxLoans();
+        int patronCurrentLoans = this.getCardLayoutMain().getPatronLoggedIn().getLoansNotReturned();
+        int patronLoansLeft = patronMaxLoans - patronCurrentLoans;
+        int toBeLended = itemsToLoan.size();
+
+        if(toBeLended > patronLoansLeft){
+            UI.showErrorDialog("Too many items to loan. You already have " + patronCurrentLoans + " loans. You can have a maximum of " + patronMaxLoans + " loans");
+            return;
+        }
+        
         
         Loan loan = new Loan();
         loan.setPatronId(this.getCardLayoutMain().getPatronLoggedIn());
@@ -194,7 +211,11 @@ public class CreateLoanUI extends UI {
             if(current.isOnLoan()){
                 UI.showErrorDialog(current.getTitle()+" is alreay on loan. Remove it");
                 return;
-            }else{
+            }else if(!current.isLendable()){
+                UI.showErrorDialog(current.getTitle()+" is not lendable");
+                return;
+            }
+            else{
                 ItemLoan itemLoan = new ItemLoan();
                 ItemLoanPK itemLoanPK = new ItemLoanPK(current.getBarcode(),loan.getLoanId());
                 itemLoan.setItemLoanPK(itemLoanPK);
@@ -225,6 +246,7 @@ public class CreateLoanUI extends UI {
         receipt += "Loan date: "+ format.format(newDate)+"\n\n";
         for(ItemLoan current : itemLoans){
             receipt += current.getItem().getTitle()+"\n";
+            receipt += "Barcode: "+current.getItem().getBarcode()+"\n";
             
             //Check if book or dvd and calculate return date as appropriate
             if(current.getItem().getBook() == null){
@@ -254,7 +276,9 @@ public class CreateLoanUI extends UI {
         if(!itemToAdd.isEmpty()){
             Item item = itemToAdd.get(0);
             if(item.isOnLoan()){
-                UI.showErrorDialog("This is object is alreay on loan");
+                UI.showErrorDialog("This is item is alreay on loan");
+            }else if(!item.isLendable()){
+                UI.showErrorDialog("This is item is not lendable");
             }else{
                 model.addElement(item);
             }

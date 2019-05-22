@@ -166,6 +166,19 @@ public class Item implements Serializable {
         return false;
     }
     
+    public boolean isLendable(){
+        if(this.getBook() == null){
+            //DVD always Lendable
+            return true;
+        }else{
+            if(this.getBook().getBookTypeId().getLoanDays() > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+    
     @Override
     public boolean equals(Object object) {
         if (!(object instanceof Item)) {
