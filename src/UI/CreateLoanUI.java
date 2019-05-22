@@ -57,6 +57,9 @@ public class CreateLoanUI extends UI {
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
         addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 formComponentShown(evt);
             }
@@ -305,6 +308,10 @@ public class CreateLoanUI extends UI {
             logInBtn.setVisible(true);
         }
     }//GEN-LAST:event_logInBtnComponentShown
+
+    private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+        
+    }//GEN-LAST:event_formComponentHidden
     
     public ArrayList<Item> getItemsToLoad() {
         return itemsToLoad;

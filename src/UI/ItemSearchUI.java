@@ -79,6 +79,8 @@ public class ItemSearchUI extends UI {
         toLoanList = new javax.swing.JList<>();
         addToLoan = new javax.swing.JButton();
         loanButton = new javax.swing.JButton();
+        myPageBtn = new javax.swing.JButton();
+        homeBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -202,6 +204,20 @@ public class ItemSearchUI extends UI {
             }
         });
 
+        myPageBtn.setText("My page");
+        myPageBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myPageBtnActionPerformed(evt);
+            }
+        });
+
+        homeBtn.setText("Home");
+        homeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homeBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,9 +228,6 @@ public class ItemSearchUI extends UI {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton6)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(97, 97, 97)
-                                    .addComponent(jLabel2))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
@@ -250,7 +263,15 @@ public class ItemSearchUI extends UI {
                                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel5)
                                     .addGap(18, 18, 18)
-                                    .addComponent(itemSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(itemSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(14, 14, 14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(homeBtn)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(83, 83, 83)
+                                            .addComponent(jLabel2))
+                                        .addComponent(myPageBtn)))))
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
@@ -270,13 +291,20 @@ public class ItemSearchUI extends UI {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(66, 66, 66)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lendItemText)
+                        .addGap(66, 66, 66)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lendItemText)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sendToLogIn))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(homeBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendToLogIn)))
+                        .addComponent(myPageBtn)))
                 .addGap(8, 8, 8)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -341,6 +369,7 @@ public class ItemSearchUI extends UI {
             toLoanList.setVisible(false);
             addToLoan.setVisible(false);
             jLabel9.setVisible(false);
+            myPageBtn.setVisible(false);
         }else{
             lendItemText.setVisible(false);
             sendToLogIn.setVisible(false);
@@ -348,6 +377,7 @@ public class ItemSearchUI extends UI {
             toLoanList.setVisible(true);
             addToLoan.setVisible(true);
             jLabel9.setVisible(true);
+            myPageBtn.setVisible(true);
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -509,11 +539,20 @@ public class ItemSearchUI extends UI {
             lst2.removeElementAt(index);
         }
     }//GEN-LAST:event_toLoanListMouseClicked
+
+    private void homeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeBtnActionPerformed
+        switchToCard(StartPageUI.class);
+    }//GEN-LAST:event_homeBtnActionPerformed
+
+    private void myPageBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myPageBtnActionPerformed
+        switchToCard(PatronOverviewUI.class);
+    }//GEN-LAST:event_myPageBtnActionPerformed
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToLoan;
     private javax.swing.JButton authorSearch;
     private javax.swing.JButton genreSearch;
+    private javax.swing.JButton homeBtn;
     private javax.swing.JButton isbnSearch;
     private javax.swing.JComboBox<String> itemSelect;
     private javax.swing.JButton jButton6;
@@ -535,6 +574,7 @@ public class ItemSearchUI extends UI {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JLabel lendItemText;
     private javax.swing.JButton loanButton;
+    private javax.swing.JButton myPageBtn;
     private javax.swing.JButton releaseYearSearch;
     private javax.swing.JList<Item> resultList;
     private javax.swing.JButton sendToLogIn;

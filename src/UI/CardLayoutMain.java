@@ -27,8 +27,7 @@ public class CardLayoutMain {
         //Add all views
         UIlist = new ArrayList<>();
         UIlist.add(new StartPageUI(this));
-        
-        
+
         UIlist.add(new ActorSearch(this));
         UIlist.add(new AddBookUI(this));
         UIlist.add(new AddDVDUI(this));
