@@ -33,38 +33,36 @@
               <Component id="overviewFullName" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="253" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="overviewChangeButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="474" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="overviewTele" max="32767" attributes="0"/>
+                      <Component id="overviewEmail" alignment="0" max="32767" attributes="0"/>
+                      <Component id="overviewLastname" alignment="0" max="32767" attributes="0"/>
+                      <Component id="overviewFirstname" alignment="0" max="32767" attributes="0"/>
+                      <Component id="overviewDob" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="overviewTele" max="32767" attributes="0"/>
-                          <Component id="overviewEmail" alignment="0" max="32767" attributes="0"/>
-                          <Component id="overviewLastname" alignment="0" max="32767" attributes="0"/>
-                          <Component id="overviewFirstname" alignment="0" max="32767" attributes="0"/>
-                          <Component id="overviewDob" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="325" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane2" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Component id="overviewChangeButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="logOutBtn" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane2" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
+                      <Component id="jLabel6" alignment="0" min="-2" pref="68" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemSrchBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="newLoanBtn" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -78,14 +76,18 @@
                   <Component id="overviewFullName" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="86" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                       <Component id="overviewFirstname" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -94,7 +96,6 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" min="-2" pref="86" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -115,8 +116,16 @@
                   <Component id="jScrollPane1" min="-2" pref="86" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="overviewChangeButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="81" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="overviewChangeButton" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemSrchBtn" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="logOutBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="newLoanBtn" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -251,6 +260,30 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Patron overview"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="newLoanBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="New loan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newLoanBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="logOutBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Log out"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="logOutBtnActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="itemSrchBtn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Item search"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemSrchBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

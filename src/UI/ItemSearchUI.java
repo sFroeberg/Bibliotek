@@ -12,6 +12,7 @@ import entities.Item;
 import entities.Patron;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -168,11 +169,6 @@ public class ItemSearchUI extends UI {
         });
 
         sendToLogIn.setText("Log in");
-        sendToLogIn.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                sendToLogInComponentShown(evt);
-            }
-        });
         sendToLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendToLogInActionPerformed(evt);
@@ -180,34 +176,19 @@ public class ItemSearchUI extends UI {
         });
 
         lendItemText.setText("Do you want to make a loan?");
-        lendItemText.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                lendItemTextComponentShown(evt);
-            }
-        });
 
         jScrollPane2.setViewportView(resultList);
 
         jLabel9.setText("To loan");
-        jLabel9.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jLabel9ComponentShown(evt);
-            }
-        });
 
-        toLoanList.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                toLoanListComponentShown(evt);
+        toLoanList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLoanListMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(toLoanList);
 
         addToLoan.setText("Add to loan");
-        addToLoan.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                addToLoanComponentShown(evt);
-            }
-        });
         addToLoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToLoanActionPerformed(evt);
@@ -215,9 +196,9 @@ public class ItemSearchUI extends UI {
         });
 
         loanButton.setText("Loan");
-        loanButton.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                loanButtonComponentShown(evt);
+        loanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loanButtonActionPerformed(evt);
             }
         });
 
@@ -225,7 +206,6 @@ public class ItemSearchUI extends UI {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loanButton, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -278,11 +258,14 @@ public class ItemSearchUI extends UI {
                     .addComponent(addToLoan))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lendItemText)
-                        .addComponent(sendToLogIn)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(sendToLogIn))
+                    .addComponent(jLabel9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(loanButton)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +333,22 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+        if(loggedIn == null){
+            lendItemText.setVisible(true);
+            sendToLogIn.setVisible(true);
+            loanButton.setVisible(false);
+            toLoanList.setVisible(false);
+            addToLoan.setVisible(false);
+            jLabel9.setVisible(false);
+        }else{
+            lendItemText.setVisible(false);
+            sendToLogIn.setVisible(false);
+            loanButton.setVisible(true);
+            toLoanList.setVisible(true);
+            addToLoan.setVisible(true);
+            jLabel9.setVisible(true);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void itemSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSelectActionPerformed
@@ -404,16 +402,10 @@ public class ItemSearchUI extends UI {
         model.clear();
         resultList.setModel(model);
         String releaseYear = jTextField2.getText();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date newDate = null;
-        try {
-            newDate = format.parse(releaseYear+"-01-01");
-        } catch (ParseException ex) {
-            Logger.getLogger(ItemSearchUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         EntityManager em = this.getCardLayoutMain().getEntityManager();
         
-        List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", newDate).getResultList();
+        List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", releaseYear).getResultList();
         
         for (Item current: itemList){
             model.addElement(current);
@@ -421,12 +413,12 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_releaseYearSearchActionPerformed
 
     private void authorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorSearchActionPerformed
-         DefaultListModel model=new DefaultListModel();
+        DefaultListModel model=new DefaultListModel();
         model.clear();
         resultList.setModel(model);
-         String selectedItem = (String)itemSelect.getSelectedItem();
-         String authorDirector = jTextField3.getText();
-         EntityManager em = this.getCardLayoutMain().getEntityManager();
+        String selectedItem = (String)itemSelect.getSelectedItem();
+        String authorDirector = jTextField3.getText();
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
          
          if(selectedItem.equals("DVD")){
              List<Dvd> dvdList = em.createNamedQuery("Dvd.findByDirector").setParameter("director", jTextField3.getText()).getResultList();
@@ -480,30 +472,10 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_isbnSearchActionPerformed
 
     private void sendToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToLogInActionPerformed
-       
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn(); 
-        if(loggedIn == null){
-            switchToCard(LoginUI.class);
-        }
+
+        switchToCard(LoginUI.class);
+        
     }//GEN-LAST:event_sendToLogInActionPerformed
-
-    private void sendToLogInComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_sendToLogInComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_sendToLogInComponentShown
-
-    private void lendItemTextComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_lendItemTextComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_lendItemTextComponentShown
     
     private void addToLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToLoanActionPerformed
        
@@ -512,45 +484,32 @@ public class ItemSearchUI extends UI {
        
     }//GEN-LAST:event_addToLoanActionPerformed
 
-    private void toLoanListComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_toLoanListComponentShown
+    private void loanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanButtonActionPerformed
         Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
         if(loggedIn == null){
-            lendItemText.setVisible(false);
+            UI.showInfoDialog("You must log in to make a loan");
         }else{
-            lendItemText.setVisible(true);
+            ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
+            for(UI current : cards){
+                if(current instanceof CreateLoanUI){
+                    for(int i=0; i<lst2.size(); i++){
+                        Item listItem = lst2.getElementAt(i);
+                            ((CreateLoanUI) current).addItemsToLoad(listItem);
+                    }
+                }
+            }
+            switchToCard(CreateLoanUI.class);  
         }
-    }//GEN-LAST:event_toLoanListComponentShown
+    }//GEN-LAST:event_loanButtonActionPerformed
 
-    private void jLabel9ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jLabel9ComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
+    private void toLoanListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoanListMouseClicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            lst2.removeElementAt(index);
         }
-    }//GEN-LAST:event_jLabel9ComponentShown
-
-    private void loanButtonComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_loanButtonComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_loanButtonComponentShown
-
-    private void addToLoanComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_addToLoanComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_addToLoanComponentShown
+    }//GEN-LAST:event_toLoanListMouseClicked
  
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToLoan;
     private javax.swing.JButton authorSearch;
