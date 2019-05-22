@@ -169,11 +169,6 @@ public class ItemSearchUI extends UI {
         });
 
         sendToLogIn.setText("Log in");
-        sendToLogIn.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                sendToLogInComponentShown(evt);
-            }
-        });
         sendToLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendToLogInActionPerformed(evt);
@@ -181,39 +176,19 @@ public class ItemSearchUI extends UI {
         });
 
         lendItemText.setText("Do you want to make a loan?");
-        lendItemText.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                lendItemTextComponentShown(evt);
-            }
-        });
 
         jScrollPane2.setViewportView(resultList);
 
         jLabel9.setText("To loan");
-        jLabel9.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                jLabel9ComponentShown(evt);
-            }
-        });
 
         toLoanList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 toLoanListMouseClicked(evt);
             }
         });
-        toLoanList.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                toLoanListComponentShown(evt);
-            }
-        });
         jScrollPane1.setViewportView(toLoanList);
 
         addToLoan.setText("Add to loan");
-        addToLoan.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                addToLoanComponentShown(evt);
-            }
-        });
         addToLoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToLoanActionPerformed(evt);
@@ -221,11 +196,6 @@ public class ItemSearchUI extends UI {
         });
 
         loanButton.setText("Loan");
-        loanButton.addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                loanButtonComponentShown(evt);
-            }
-        });
         loanButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loanButtonActionPerformed(evt);
@@ -363,7 +333,22 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+        if(loggedIn == null){
+            lendItemText.setVisible(true);
+            sendToLogIn.setVisible(true);
+            loanButton.setVisible(false);
+            toLoanList.setVisible(false);
+            addToLoan.setVisible(false);
+            jLabel9.setVisible(false);
+        }else{
+            lendItemText.setVisible(false);
+            sendToLogIn.setVisible(false);
+            loanButton.setVisible(true);
+            toLoanList.setVisible(true);
+            addToLoan.setVisible(true);
+            jLabel9.setVisible(true);
+        }
     }//GEN-LAST:event_formComponentShown
 
     private void itemSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSelectActionPerformed
@@ -487,30 +472,10 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_isbnSearchActionPerformed
 
     private void sendToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToLogInActionPerformed
-       
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn(); 
-        if(loggedIn == null){
-            switchToCard(LoginUI.class);
-        }
+
+        switchToCard(LoginUI.class);
+        
     }//GEN-LAST:event_sendToLogInActionPerformed
-
-    private void sendToLogInComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_sendToLogInComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_sendToLogInComponentShown
-
-    private void lendItemTextComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_lendItemTextComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_lendItemTextComponentShown
     
     private void addToLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToLoanActionPerformed
        
@@ -519,54 +484,22 @@ public class ItemSearchUI extends UI {
        
     }//GEN-LAST:event_addToLoanActionPerformed
 
-    private void toLoanListComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_toLoanListComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_toLoanListComponentShown
-
-    private void jLabel9ComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jLabel9ComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_jLabel9ComponentShown
-
-    private void loanButtonComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_loanButtonComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_loanButtonComponentShown
-
-    private void addToLoanComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_addToLoanComponentShown
-        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
-        if(loggedIn == null){
-            lendItemText.setVisible(false);
-        }else{
-            lendItemText.setVisible(true);
-        }
-    }//GEN-LAST:event_addToLoanComponentShown
-
     private void loanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanButtonActionPerformed
-       
-        ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
-        for(UI current : cards){
-            if(current instanceof CreateLoanUI){
-                for(int i=0; i<lst2.size(); i++){
-                    Item listItem = lst2.getElementAt(i);
-                    ((CreateLoanUI) current).addItemsToLoad(listItem);
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+        if(loggedIn == null){
+            UI.showInfoDialog("You must log in to make a loan");
+        }else{
+            ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
+            for(UI current : cards){
+                if(current instanceof CreateLoanUI){
+                    for(int i=0; i<lst2.size(); i++){
+                        Item listItem = lst2.getElementAt(i);
+                            ((CreateLoanUI) current).addItemsToLoad(listItem);
+                    }
                 }
             }
+            switchToCard(CreateLoanUI.class);  
         }
-        switchToCard(CreateLoanUI.class);       
     }//GEN-LAST:event_loanButtonActionPerformed
 
     private void toLoanListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoanListMouseClicked

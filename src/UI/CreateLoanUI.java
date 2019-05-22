@@ -9,6 +9,7 @@ import entities.Item;
 import entities.ItemLoan;
 import entities.ItemLoanPK;
 import entities.Loan;
+import entities.Patron;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -50,6 +51,8 @@ public class CreateLoanUI extends UI {
         itemsList = new javax.swing.JList();
         createLoanBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        itmSrchBtn = new javax.swing.JButton();
+        logInBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -87,6 +90,25 @@ public class CreateLoanUI extends UI {
 
         jLabel3.setText("Items to loan (double click to remove item)");
 
+        itmSrchBtn.setText("Item search");
+        itmSrchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmSrchBtnActionPerformed(evt);
+            }
+        });
+
+        logInBtn.setText("Log in");
+        logInBtn.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                logInBtnComponentShown(evt);
+            }
+        });
+        logInBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logInBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -97,15 +119,15 @@ public class CreateLoanUI extends UI {
                         .addGap(251, 251, 251)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(224, 224, 224)
-                        .addComponent(createLoanBtn))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(itemBarCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addItemBtn))
-                        .addGap(101, 101, 101)
+                            .addComponent(addItemBtn)
+                            .addComponent(createLoanBtn)
+                            .addComponent(itmSrchBtn)
+                            .addComponent(logInBtn))
+                        .addGap(98, 98, 98)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -126,12 +148,14 @@ public class CreateLoanUI extends UI {
                         .addComponent(itemBarCodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(addItemBtn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(createLoanBtn)
-                        .addGap(109, 109, 109))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(itmSrchBtn))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(logInBtn)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void initJlist(){
@@ -157,7 +181,7 @@ public class CreateLoanUI extends UI {
             this.getCardLayoutMain().getEntityManager().persist(loan);
             this.getCardLayoutMain().getEntityManager().getTransaction().commit();
         }catch (RollbackException | IllegalStateException e){
-            UI.showErrorDialog("Could not save loan to database");
+            UI.showErrorDialog("Could not save loan to database. You might have to log in first.");
             return;
         }
         
@@ -216,6 +240,7 @@ public class CreateLoanUI extends UI {
         }
 
         UI.showInfoDialog("Loan saved!\n\nThis is your receipt:\n"+receipt);
+        switchToCard(PatronOverviewUI.class);
         
     }//GEN-LAST:event_createLoanBtnActionPerformed
 
@@ -255,8 +280,31 @@ public class CreateLoanUI extends UI {
         }
         //Clear the list after loading it
         this.clearItemsToLoad();
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+        if(loggedIn == null){
+            logInBtn.setVisible(true);
+        }else{
+            logInBtn.setVisible(false);
+        }
         
     }//GEN-LAST:event_formComponentShown
+
+    private void itmSrchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSrchBtnActionPerformed
+        switchToCard(ItemSearchUI.class);
+    }//GEN-LAST:event_itmSrchBtnActionPerformed
+
+    private void logInBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInBtnActionPerformed
+        switchToCard(LoginUI.class);
+    }//GEN-LAST:event_logInBtnActionPerformed
+
+    private void logInBtnComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_logInBtnComponentShown
+        Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
+        if(loggedIn == null){
+            logInBtn.setVisible(false);
+        }else{
+            logInBtn.setVisible(true);
+        }
+    }//GEN-LAST:event_logInBtnComponentShown
     
     public ArrayList<Item> getItemsToLoad() {
         return itemsToLoad;
@@ -274,10 +322,12 @@ public class CreateLoanUI extends UI {
     private javax.swing.JButton createLoanBtn;
     private javax.swing.JTextField itemBarCodeField;
     private javax.swing.JList itemsList;
+    private javax.swing.JButton itmSrchBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton logInBtn;
     // End of variables declaration//GEN-END:variables
     DefaultListModel<Item> model = new DefaultListModel<>();
 }
