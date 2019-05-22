@@ -10,7 +10,6 @@ import entities.ItemLoan;
 import entities.ItemLoanPK;
 import entities.Loan;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -25,14 +24,13 @@ import javax.swing.JList;
  * @author Felix
  */
 public class CreateLoanUI extends UI {
-
-    /**
-     * Creates new form CreateLoanUI
-     */
+    private ArrayList<Item> itemsToLoad;
+    
     public CreateLoanUI(CardLayoutMain cardLayoutMain) {
         super(cardLayoutMain);
         initComponents();
         initJlist();
+        itemsToLoad = new ArrayList<>();
     }
 
     /**
@@ -55,6 +53,11 @@ public class CreateLoanUI extends UI {
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("New loan");
@@ -241,6 +244,11 @@ public class CreateLoanUI extends UI {
             model.removeElementAt(index);
         }
     }//GEN-LAST:event_itemsListMouseClicked
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        //Clear Jlist on show
+        model.removeAllElements();
+    }//GEN-LAST:event_formComponentShown
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
