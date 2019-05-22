@@ -14,6 +14,7 @@ public class CardLayoutMain {
     private Patron patronLoggedIn; 
     private Employee empLoggedIn;
     private EntityManager entityManager;
+    private ArrayList<UI> UIlist;
     public CardLayoutMain(){
         super();
         EntityManagerFactory emfactory = Persistence.createEntityManagerFactory( "BibliotekPU" );
@@ -24,22 +25,22 @@ public class CardLayoutMain {
         cards = new JPanel(new CardLayout());
         
         //Add all views
-        ArrayList<UI> uiClasses = new ArrayList<>();
-        uiClasses.add(new StartPageUI(this));
-        uiClasses.add(new ItemSearchUI(this));
-        uiClasses.add(new ActorSearch(this));
-        uiClasses.add(new LoginUI(this));
-        uiClasses.add(new AddDVDUI(this));
-        uiClasses.add(new AddBookUI(this));
-        uiClasses.add(new CreateLoanUI(this));
-        uiClasses.add(new LoginUI(this));
-        uiClasses.add(new EmployeeStartUI(this));
-        uiClasses.add(new ItemSearchUI(this));
-        uiClasses.add(new ActorSearch(this));
-        uiClasses.add(new RegisterPatronUI(this));
-        uiClasses.add(new PatronOverviewUI(this));
+        UIlist = new ArrayList<>();
+        UIlist.add(new StartPageUI(this));
+        UIlist.add(new ItemSearchUI(this));
+        UIlist.add(new ActorSearch(this));
+        UIlist.add(new LoginUI(this));
+        UIlist.add(new AddDVDUI(this));
+        UIlist.add(new AddBookUI(this));
+        UIlist.add(new CreateLoanUI(this));
+        UIlist.add(new LoginUI(this));
+        UIlist.add(new EmployeeStartUI(this));
+        UIlist.add(new ItemSearchUI(this));
+        UIlist.add(new ActorSearch(this));
+        UIlist.add(new RegisterPatronUI(this));
+        UIlist.add(new PatronOverviewUI(this));
         
-        for(UI current : uiClasses){
+        for(UI current : UIlist){
             cards.add(current, current.getClass().getName());
         }
         pane.add(cards, BorderLayout.CENTER);
@@ -88,6 +89,11 @@ public class CardLayoutMain {
     public EntityManager getEntityManager() {
         return entityManager;
     }
+
+    public ArrayList<UI> getUIlist() {
+        return UIlist;
+    }
+    
     
     public static void main(String[] args) {
         try {
