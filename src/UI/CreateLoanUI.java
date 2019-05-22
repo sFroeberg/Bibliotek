@@ -248,6 +248,14 @@ public class CreateLoanUI extends UI {
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         //Clear Jlist on show
         model.removeAllElements();
+        
+        //Add preloaded items
+        for(Item current : this.getItemsToLoad()){
+            model.addElement(current);
+        }
+        //Clear the list after loading it
+        this.clearItemsToLoad();
+        
     }//GEN-LAST:event_formComponentShown
     
     public ArrayList<Item> getItemsToLoad() {
@@ -256,6 +264,9 @@ public class CreateLoanUI extends UI {
 
     public void addItemsToLoad(Item item) {
         this.itemsToLoad.add(item);
+    }
+    public void clearItemsToLoad() {
+        this.itemsToLoad.clear();
     }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
