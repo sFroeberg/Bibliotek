@@ -6,6 +6,7 @@
 package UI;
 
 import entities.Item;
+import entities.Patron;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -121,6 +122,8 @@ public class StartPageUI extends UI {
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List<Patron> patron = this.getCardLayoutMain().getEntityManager().createNamedQuery("Patron.findByPatronId").setParameter("patronId", 1).getResultList();
+        this.getCardLayoutMain().setPatronLoggedIn(patron.get(0));
         this.switchToCard(CreateLoanUI.class);
     }//GEN-LAST:event_jButton1ActionPerformed
 

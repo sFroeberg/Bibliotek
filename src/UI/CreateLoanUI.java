@@ -194,7 +194,6 @@ public class CreateLoanUI extends UI {
         receipt += "Name: "+ this.getCardLayoutMain().getPatronLoggedIn().getFullName()+"\n";
         receipt += "Loan date: "+ format.format(newDate)+"\n\n";
         for(ItemLoan current : itemLoans){
-            System.out.println(current);
             receipt += current.getItem().getTitle()+"\n";
             
             //Check if book or dvd and calculate return date as appropriate
@@ -212,8 +211,6 @@ public class CreateLoanUI extends UI {
             }
             receipt += "\n\n";
         }
-        //Remove last line breaks
-        receipt = receipt.trim();
 
         UI.showInfoDialog("Loan saved!\n\nThis is your receipt:\n"+receipt);
         
