@@ -180,7 +180,7 @@ public class Item implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Item[ barcode=" + barcode + " ]";
+        return title;
     }
     
 }
