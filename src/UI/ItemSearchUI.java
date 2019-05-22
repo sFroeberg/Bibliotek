@@ -12,6 +12,7 @@ import entities.Item;
 import entities.Patron;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -195,6 +196,11 @@ public class ItemSearchUI extends UI {
             }
         });
 
+        toLoanList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                toLoanListMouseClicked(evt);
+            }
+        });
         toLoanList.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
                 toLoanListComponentShown(evt);
@@ -220,12 +226,16 @@ public class ItemSearchUI extends UI {
                 loanButtonComponentShown(evt);
             }
         });
+        loanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loanButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loanButton, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -278,11 +288,14 @@ public class ItemSearchUI extends UI {
                     .addComponent(addToLoan))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lendItemText)
-                        .addComponent(sendToLogIn)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(sendToLogIn))
+                    .addComponent(jLabel9)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(loanButton)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -404,16 +417,10 @@ public class ItemSearchUI extends UI {
         model.clear();
         resultList.setModel(model);
         String releaseYear = jTextField2.getText();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date newDate = null;
-        try {
-            newDate = format.parse(releaseYear+"-01-01");
-        } catch (ParseException ex) {
-            Logger.getLogger(ItemSearchUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
         EntityManager em = this.getCardLayoutMain().getEntityManager();
         
-        List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", newDate).getResultList();
+        List<Item> itemList = em.createNamedQuery("Item.findByReleaseYear").setParameter("releaseYear", releaseYear).getResultList();
         
         for (Item current: itemList){
             model.addElement(current);
@@ -421,12 +428,12 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_releaseYearSearchActionPerformed
 
     private void authorSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_authorSearchActionPerformed
-         DefaultListModel model=new DefaultListModel();
+        DefaultListModel model=new DefaultListModel();
         model.clear();
         resultList.setModel(model);
-         String selectedItem = (String)itemSelect.getSelectedItem();
-         String authorDirector = jTextField3.getText();
-         EntityManager em = this.getCardLayoutMain().getEntityManager();
+        String selectedItem = (String)itemSelect.getSelectedItem();
+        String authorDirector = jTextField3.getText();
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
          
          if(selectedItem.equals("DVD")){
              List<Dvd> dvdList = em.createNamedQuery("Dvd.findByDirector").setParameter("director", jTextField3.getText()).getResultList();
@@ -547,10 +554,29 @@ public class ItemSearchUI extends UI {
             lendItemText.setVisible(true);
         }
     }//GEN-LAST:event_addToLoanComponentShown
+
+    private void loanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanButtonActionPerformed
+       
+        ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
+        for(UI current : cards){
+            if(current instanceof CreateLoanUI){
+                for(int i=0; i<lst2.size(); i++){
+                    Item listItem = lst2.getElementAt(i);
+                    ((CreateLoanUI) current).addItemsToLoad(listItem);
+                }
+            }
+        }
+        switchToCard(CreateLoanUI.class);       
+    }//GEN-LAST:event_loanButtonActionPerformed
+
+    private void toLoanListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toLoanListMouseClicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            lst2.removeElementAt(index);
+        }
+    }//GEN-LAST:event_toLoanListMouseClicked
  
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addToLoan;
     private javax.swing.JButton authorSearch;
