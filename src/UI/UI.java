@@ -10,10 +10,10 @@ public abstract class  UI extends javax.swing.JPanel {
         this.cardLayoutMain = cardLayoutMain;
     }
     public static void showErrorDialog(String text){
-        JOptionPane.showMessageDialog(null,text,"Error",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null,text.trim(),"Error",JOptionPane.ERROR_MESSAGE);
     }
     public static void showInfoDialog(String text){
-        JOptionPane.showMessageDialog(null, text,"Message",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, text.trim(),"Message",JOptionPane.INFORMATION_MESSAGE);
     }
     public CardLayoutMain getCardLayoutMain() {
         return cardLayoutMain;
