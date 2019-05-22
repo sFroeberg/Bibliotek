@@ -260,6 +260,7 @@ public class PatronSearchUI extends UI {
             for(UI current : cards){
                 if(current instanceof PatronAdminUI){
                     ((PatronAdminUI) current).setPatron(model.getElementAt(index));
+                    this.switchToCard(PatronAdminUI.class);
                 }
             }
         }

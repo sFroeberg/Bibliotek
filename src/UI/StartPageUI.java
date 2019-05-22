@@ -6,6 +6,8 @@
 package UI;
 
 import entities.Item;
+import entities.ItemLoan;
+import entities.Loan;
 import entities.Patron;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -114,9 +116,9 @@ public class StartPageUI extends UI {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -147,6 +149,15 @@ public class StartPageUI extends UI {
                 System.out.println(current);
             }
         }
+        
+        
+                List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
+                for(Loan current: asd){
+                    for(ItemLoan curr: current.getItemLoanCollection()){
+                        System.out.println(curr.getItem().getTitle());
+                    }
+                }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
