@@ -1,22 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UI;
 
 import entities.Author;
+import entities.Book;
 import entities.BookType;
+import entities.Item;
+import entities.Tag;
 import java.awt.Component;
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.RollbackException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Felix
- */
 public class AddBookUI extends UI {
 
     public AddBookUI(CardLayoutMain cardLayoutMain) {
@@ -54,12 +51,18 @@ public class AddBookUI extends UI {
         jLabel9 = new javax.swing.JLabel();
         bookTypeCombo = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        authorsList = new javax.swing.JList();
+        authorsList = new javax.swing.JList<Author>();
         jLabel10 = new javax.swing.JLabel();
         authorListCombo = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         saveBookBtn = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        tagsListCombo = new javax.swing.JComboBox();
+        addTagBtn = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tagsList = new javax.swing.JList<Tag>();
+        jLabel13 = new javax.swing.JLabel();
 
         jLabel8.setText("jLabel8");
 
@@ -101,6 +104,11 @@ public class AddBookUI extends UI {
 
         jLabel9.setText("Book type");
 
+        authorsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                authorsListMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(authorsList);
 
         jLabel10.setText("Add authors");
@@ -121,6 +129,24 @@ public class AddBookUI extends UI {
             }
         });
 
+        jLabel12.setText("Add tags");
+
+        addTagBtn.setText("Add tag");
+        addTagBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addTagBtnActionPerformed(evt);
+            }
+        });
+
+        tagsList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tagsListMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tagsList);
+
+        jLabel13.setText("Tags (double click to remove)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,23 +158,23 @@ public class AddBookUI extends UI {
                         .addComponent(cancelBtn)
                         .addGap(188, 188, 188)
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                         .addComponent(saveBookBtn))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(115, 115, 115)
+                        .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(titleField, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(locationField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(yearField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                .addComponent(barcodeField, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(yearField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(barcodeField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel5)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel6))
-                        .addGap(132, 132, 132)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jLabel9)
@@ -157,10 +183,16 @@ public class AddBookUI extends UI {
                             .addComponent(jLabel11)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(authorListCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, 120, Short.MAX_VALUE)
+                                .addComponent(authorListCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(bookTypeCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ISBNField, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 22, Short.MAX_VALUE)))
+                                .addComponent(ISBNField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(tagsListCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addTagBtn)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -174,49 +206,60 @@ public class AddBookUI extends UI {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(barcodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                    .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tagsListCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(addTagBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(titleField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bookTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bookTypeCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(authorListCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(locationField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(authorListCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(42, 42, 42))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(yearField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
     }// </editor-fold>//GEN-END:initComponents
     private void initJlist(){
-        model = new DefaultListModel<>();
-        authorsList.setModel(model);
+        //Authors
+        modelAuthor = new DefaultListModel<>();
+        authorsList.setModel(modelAuthor);
+        
+        modelTags = new DefaultListModel<>();
+        tagsList.setModel(modelTags);
     }
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBtnActionPerformed
         this.switchToCard(EmployeeStartUI.class);
@@ -237,6 +280,11 @@ public class AddBookUI extends UI {
                 field.setText("");
             }     
         }
+        descField.setText("");
+        modelAuthor.removeAllElements();
+        modelTags.removeAllElements();
+        
+        
         //Setup all Booktypes in comboBox
         List<BookType> bookTypes = this.getCardLayoutMain().getEntityManager().createNamedQuery("BookType.findAll")
                 .getResultList();
@@ -253,22 +301,101 @@ public class AddBookUI extends UI {
             authorListCombo.addItem(current);
         }
         
+        //Setup all Tags in comboBox
+        List<Tag> tags = this.getCardLayoutMain().getEntityManager().createNamedQuery("Tag.findAll")
+                .getResultList();
+        tagsListCombo.removeAllItems();
+        for(Tag curr : tags){
+            tagsListCombo.addItem(curr);
+        }
+        
     }//GEN-LAST:event_formComponentShown
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Author selAuthor = (Author) authorListCombo.getSelectedItem();
-        model.addElement(selAuthor.getFullName());
+        modelAuthor.addElement(selAuthor);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void saveBookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBookBtnActionPerformed
-        // TODO add your handling code here:
+        Item newItem = new Item();
+        newItem.setBarcode(barcodeField.getText());
+        newItem.setTitle(titleField.getText());
+        newItem.setReleaseYear(Year.of(Integer.parseInt(yearField.getText())).toString());
+        newItem.setLocation(locationField.getText());
+        newItem.setDescription(descField.getText());
+        
+        Book newBook = new Book();
+        newBook.setItembarcode(barcodeField.getText());
+        newBook.setIsbn(ISBNField.getText());
+        newBook.setBookTypeId((BookType) bookTypeCombo.getSelectedItem());
+        
+        //Set all authors
+        ArrayList<Author> authors = new ArrayList<>();
+        int i = 0;
+        while(i < modelAuthor.getSize()){
+            authors.add(modelAuthor.getElementAt(i));
+            i++;
+        }
+        
+        newBook.setAuthorCollection(authors);
+        
+        //Set all tags
+        ArrayList<Tag> tags = new ArrayList<>();
+        int j = 0;
+        while(j < modelTags.getSize()){
+            tags.add(modelTags.getElementAt(j));
+            j++;
+        }
+        
+        newBook.setTagCollection(tags);
+        try{
+                //Save to database
+            
+                //Item
+                this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+                this.getCardLayoutMain().getEntityManager().persist(newItem);
+                this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+                
+                //Book
+                this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+                this.getCardLayoutMain().getEntityManager().persist(newBook);
+                this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+                UI.showInfoDialog("Book saved");
+                this.switchToCard(EmployeeStartUI.class);
+            }catch (RollbackException | IllegalStateException e){
+                UI.showErrorDialog("Could not save book to database");
+            }
     }//GEN-LAST:event_saveBookBtnActionPerformed
+
+    private void addTagBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addTagBtnActionPerformed
+        Tag selTag = (Tag) tagsListCombo.getSelectedItem();
+        modelTags.addElement(selTag);
+    }//GEN-LAST:event_addTagBtnActionPerformed
+
+    private void tagsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tagsListMouseClicked
+        //Remove element when double clicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            modelTags.removeElementAt(index);
+        }
+    }//GEN-LAST:event_tagsListMouseClicked
+
+    private void authorsListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_authorsListMouseClicked
+        //Remove element when double clicked
+        JList list = (JList)evt.getSource();
+        if (evt.getClickCount() == 2) {
+            int index = list.locationToIndex(evt.getPoint());
+            modelAuthor.removeElementAt(index);
+        }
+    }//GEN-LAST:event_authorsListMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ISBNField;
+    private javax.swing.JButton addTagBtn;
     private javax.swing.JComboBox authorListCombo;
-    private javax.swing.JList authorsList;
+    private javax.swing.JList<Author> authorsList;
     private javax.swing.JTextField barcodeField;
     private javax.swing.JComboBox bookTypeCombo;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -278,6 +405,8 @@ public class AddBookUI extends UI {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -288,10 +417,14 @@ public class AddBookUI extends UI {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField locationField;
     private javax.swing.JButton saveBookBtn;
+    private javax.swing.JList<Tag> tagsList;
+    private javax.swing.JComboBox tagsListCombo;
     private javax.swing.JTextField titleField;
     private javax.swing.JTextField yearField;
     // End of variables declaration//GEN-END:variables
-    DefaultListModel<String> model = new DefaultListModel<>();
+    DefaultListModel<Author> modelAuthor = new DefaultListModel<>();
+    DefaultListModel<Tag> modelTags = new DefaultListModel<>();
 }

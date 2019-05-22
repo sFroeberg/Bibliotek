@@ -74,7 +74,7 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Tag[ name=" + name + " ]";
+        return this.getName();
     }
     
 }

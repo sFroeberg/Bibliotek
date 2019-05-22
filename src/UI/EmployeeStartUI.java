@@ -30,11 +30,12 @@ public class EmployeeStartUI extends UI {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        employeeName = new javax.swing.JLabel();
+        textField2 = new javax.swing.JLabel();
         newPatronBtn = new javax.swing.JButton();
         empLogoutBtn = new javax.swing.JButton();
         addBookBtn = new javax.swing.JButton();
         addDvdBtn = new javax.swing.JButton();
+        employeeName = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -45,8 +46,8 @@ public class EmployeeStartUI extends UI {
             }
         });
 
-        employeeName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        employeeName.setText("Namn Namnsson");
+        textField2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textField2.setText("Employee home screen");
 
         newPatronBtn.setText("Register new patron");
         newPatronBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +71,13 @@ public class EmployeeStartUI extends UI {
         });
 
         addDvdBtn.setText("Add new DVD");
+        addDvdBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDvdBtnActionPerformed(evt);
+            }
+        });
+
+        employeeName.setText("Name Namesson");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -79,30 +87,35 @@ public class EmployeeStartUI extends UI {
                 .addGap(62, 62, 62)
                 .addComponent(newPatronBtn)
                 .addGap(18, 18, 18)
-                .addComponent(addBookBtn)
-                .addGap(18, 18, 18)
-                .addComponent(addDvdBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(237, 237, 237)
-                .addComponent(employeeName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
-                .addComponent(empLogoutBtn)
-                .addGap(34, 34, 34))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(addBookBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(addDvdBtn)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(textField2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(empLogoutBtn)
+                            .addComponent(employeeName))
+                        .addGap(65, 65, 65))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(employeeName)
+                    .addComponent(textField2)
                     .addComponent(empLogoutBtn))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(employeeName)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(newPatronBtn)
                     .addComponent(addBookBtn)
                     .addComponent(addDvdBtn))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -112,7 +125,6 @@ public class EmployeeStartUI extends UI {
             UI.showErrorDialog("Not logged in!");
             System.exit(0);
         }
-        
         employeeName.setText(employee.getFullName());
     }//GEN-LAST:event_formComponentShown
 
@@ -129,6 +141,10 @@ public class EmployeeStartUI extends UI {
         this.switchToCard(AddBookUI.class);
     }//GEN-LAST:event_addBookBtnActionPerformed
 
+    private void addDvdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDvdBtnActionPerformed
+        this.switchToCard(AddDVDUI.class);
+    }//GEN-LAST:event_addDvdBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookBtn;
@@ -136,5 +152,6 @@ public class EmployeeStartUI extends UI {
     private javax.swing.JButton empLogoutBtn;
     private javax.swing.JLabel employeeName;
     private javax.swing.JButton newPatronBtn;
+    private javax.swing.JLabel textField2;
     // End of variables declaration//GEN-END:variables
 }

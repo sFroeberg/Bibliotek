@@ -109,7 +109,7 @@ public class Actor implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Actor[ actorId=" + actorId + " ]";
+        return this.getFullName();
     }
     public String getFullName(){
         return this.firstName +" "+ this.lastName;
