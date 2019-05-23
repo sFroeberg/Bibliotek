@@ -1,8 +1,12 @@
 package UI;
 
 import entities.Employee;
+import entities.ItemLoan;
+import entities.Loan;
 import entities.Patron;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.swing.JOptionPane;
 import utils.RegexUtil;
@@ -310,9 +314,30 @@ public class PatronAdminUI extends UI {
                 "Click a button",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
         if(ans == 0){
-            //TODO: Implement
-            //Yes
-            System.out.println("Yes");
+            
+            //Check if patron has ongoing loan
+           List<Loan> loans = (List<Loan>) this.getPatron().getLoanCollection();
+           for(Loan current : loans){
+               List<ItemLoan> itemLoans = (List<ItemLoan>) current.getItemLoanCollection();
+               for(ItemLoan curr : itemLoans){
+                   if(curr.getReturned() == null){
+                       UI.showErrorDialog("This patron has an ongoing loan. Unable to delete");
+                       return;
+                   }
+               }
+           }
+           try{
+                //Remove from database
+                this.getCardLayoutMain().getEntityManager().getTransaction().begin();
+                this.getCardLayoutMain().getEntityManager().remove(this.getPatron());
+                this.getCardLayoutMain().getEntityManager().getTransaction().commit();
+                UI.showInfoDialog("Patron removed!");
+                this.switchToCard(PatronSearchUI.class);
+            }catch (RollbackException | IllegalStateException e){
+                UI.showErrorDialog("Could not remove patron from database");
+            }
+           
+           
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
