@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.EmployeeUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.Item;
 import entities.Patron;
 import java.awt.Component;
@@ -237,7 +239,9 @@ public class PatronSearchUI extends UI {
     }//GEN-LAST:event_searchBtnActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //Rest JList
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
+        //Reset JList
         model.removeAllElements();
         
         //Reset all fields

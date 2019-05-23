@@ -1,5 +1,7 @@
-package UI;
+package UI.EmployeeUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.Patron;
 import entities.PatronType;
 import java.awt.Component;

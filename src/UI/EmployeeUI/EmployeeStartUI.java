@@ -3,9 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.EmployeeUI;
 
+import UI.EmployeeUI.LateLoansUI;
+import UI.EmployeeUI.PatronSearchUI;
+import UI.EmployeeUI.RegisterPatronUI;
+import UI.AddItems.AddBookUI;
+import UI.AddItems.AddDVDUI;
+import UI.CardLayoutMain;
+import UI.PatronUI.StartPageUI;
+import UI.UI;
 import entities.Employee;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -39,7 +48,6 @@ public class EmployeeStartUI extends UI {
         searchPatronBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        returnItemBtn = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         lateLoansBtn = new javax.swing.JButton();
 
@@ -96,13 +104,6 @@ public class EmployeeStartUI extends UI {
 
         jLabel2.setText("Item administration");
 
-        returnItemBtn.setText("Return item");
-        returnItemBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                returnItemBtnActionPerformed(evt);
-            }
-        });
-
         jLabel3.setText("Loan administration");
 
         lateLoansBtn.setText("Late loans");
@@ -134,22 +135,19 @@ public class EmployeeStartUI extends UI {
                         .addGap(65, 65, 65))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(returnItemBtn)
+                            .addComponent(newPatronBtn)
+                            .addComponent(searchPatronBtn))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addDvdBtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(newPatronBtn)
-                                    .addComponent(searchPatronBtn))
-                                .addGap(38, 38, 38)
+                                    .addComponent(jLabel2)
+                                    .addComponent(addBookBtn))
+                                .addGap(70, 70, 70)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addDvdBtn)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(addBookBtn))
-                                        .addGap(70, 70, 70)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lateLoansBtn)
-                                            .addComponent(jLabel3))))))
+                                    .addComponent(lateLoansBtn)
+                                    .addComponent(jLabel3))))
                         .addGap(0, 105, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -175,13 +173,13 @@ public class EmployeeStartUI extends UI {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addDvdBtn)
                     .addComponent(searchPatronBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(returnItemBtn)
-                .addContainerGap(217, Short.MAX_VALUE))
+                .addContainerGap(251, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
         Employee employee = this.getCardLayoutMain().getEmpLoggedIn();
         if(employee == null){
             UI.showErrorDialog("Not logged in!");
@@ -211,10 +209,6 @@ public class EmployeeStartUI extends UI {
         this.switchToCard(PatronSearchUI.class);
     }//GEN-LAST:event_searchPatronBtnActionPerformed
 
-    private void returnItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnItemBtnActionPerformed
-        this.switchToCard(ItemReturnUI.class);
-    }//GEN-LAST:event_returnItemBtnActionPerformed
-
     private void lateLoansBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lateLoansBtnActionPerformed
         this.switchToCard(LateLoansUI.class);
     }//GEN-LAST:event_lateLoansBtnActionPerformed
@@ -230,7 +224,6 @@ public class EmployeeStartUI extends UI {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton lateLoansBtn;
     private javax.swing.JButton newPatronBtn;
-    private javax.swing.JButton returnItemBtn;
     private javax.swing.JButton searchPatronBtn;
     private javax.swing.JLabel textField2;
     // End of variables declaration//GEN-END:variables

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.PatronUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.Author;
 import entities.Book;
 import entities.Dvd;
@@ -361,6 +363,8 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
         Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
         if(loggedIn == null){
             lendItemText.setVisible(true);
@@ -403,10 +407,10 @@ public class ItemSearchUI extends UI {
         resultList.setModel(model);
         String selectedItem = (String)itemSelect.getSelectedItem();
         if(selectedItem.equals("DVD")){
-            String title = jTextField1.getText();
+            String title = jTextField1.getText()+"%";
             EntityManager em = this.getCardLayoutMain().getEntityManager();
             
-            List<Item> dvdList = em.createNamedQuery("Item.findByTitle").setParameter("title", jTextField1.getText()).getResultList();
+            List<Item> dvdList = em.createNamedQuery("Item.findByTitleLike").setParameter("title", title).getResultList();
             
             for (Item current: dvdList){
                 if(current.getDvd() != null){
@@ -414,10 +418,10 @@ public class ItemSearchUI extends UI {
                 }  
             }
         }else if(selectedItem.equals("Book")){
-            String title = jTextField1.getText();
+            String title = jTextField1.getText()+"%";
             EntityManager em = this.getCardLayoutMain().getEntityManager();
             
-            List<Item> bookList = em.createNamedQuery("Item.findByTitle").setParameter("title", jTextField1.getText()).getResultList();
+            List<Item> bookList = em.createNamedQuery("Item.findByTitleLike").setParameter("title", title).getResultList();
             
             for (Item current: bookList){
                 if(current.getBook() != null){

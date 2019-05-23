@@ -1,10 +1,16 @@
-package UI;
+package UI.PatronUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.ItemLoan;
 import entities.Loan;
 import entities.Patron;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultListModel;
@@ -155,16 +161,25 @@ public class PatronOverviewUI extends UI {
                         .addComponent(overviewDob, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(overviewChangeButton)
                     .addComponent(logOutBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel7)
-                    .addComponent(itemSrchBtn)
-                    .addComponent(newLoanBtn))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(139, 139, 139))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(127, 127, 127))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(10, 10, 10)
+                                    .addComponent(newLoanBtn))
+                                .addComponent(itemSrchBtn)))
+                        .addGap(72, 72, 72))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,13 +188,13 @@ public class PatronOverviewUI extends UI {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(overviewFullName)
                     .addComponent(jLabel8))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -218,6 +233,9 @@ public class PatronOverviewUI extends UI {
     }// </editor-fold>//GEN-END:initComponents
     
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
+        
         Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
         //Avsluta om inte inloggad
         if(loggedIn == null){
@@ -235,21 +253,30 @@ public class PatronOverviewUI extends UI {
         //Format dob
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         overviewDob.setText(format.format(loggedIn.getDob()));
-        
-        EntityManager em = this.getCardLayoutMain().getEntityManager();
         DefaultListModel model = new DefaultListModel();
         overviewLoanList.setModel(model);
   
-       
+        
         List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
         for(Loan current: asd){
             for(ItemLoan curr: current.getItemLoanCollection()){
-                model.addElement(curr.getItem().getTitle());
+                if(curr.getReturned() == null){
+                    
+                    int loanMaxDays;
+                    if(curr.getItem().getBook() == null){
+                        loanMaxDays = 7;
+                    }else{
+                        loanMaxDays = curr.getItem().getBook().getBookTypeId().getLoanDays();
+                    }
+                    Date created = curr.getLoan().getCreated();
+                    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+                    LocalDate returnDate = LocalDate.parse(formater.format(created)).plusDays(loanMaxDays);
+                    Date finalDate = Date.from(returnDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+                    model.addElement(curr.getItem().getTitle() +"  - To be returned: "+formater.format(finalDate));
+                   
+                }
             }
         }
-        
-        
-        
     }//GEN-LAST:event_formComponentShown
 
     private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden

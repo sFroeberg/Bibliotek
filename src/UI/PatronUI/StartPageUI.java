@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.PatronUI;
 
+import UI.CardLayoutMain;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.UI;
 import entities.Employee;
 import entities.Item;
 import entities.ItemLoan;
@@ -161,6 +164,8 @@ public class StartPageUI extends UI {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
         Patron loggedIn = this.getCardLayoutMain().getPatronLoggedIn();
         if(loggedIn == null){
             loginBtn.setVisible(true);

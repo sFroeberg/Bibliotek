@@ -1,5 +1,8 @@
-package UI;
+package UI.AddItems;
 
+import UI.CardLayoutMain;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.UI;
 import entities.Actor;
 import entities.Dvd;
 import entities.Item;
@@ -48,7 +51,7 @@ public class AddDVDUI extends UI {
         genreField = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        actorsList = new javax.swing.JList<Actor>();
+        actorsList = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         actorListCombo = new javax.swing.JComboBox();
         addActorBtn = new javax.swing.JButton();

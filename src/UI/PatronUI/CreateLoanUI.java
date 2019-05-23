@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.PatronUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.Item;
 import entities.ItemLoan;
 import entities.ItemLoanPK;
@@ -16,6 +18,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -298,6 +301,8 @@ public class CreateLoanUI extends UI {
     }//GEN-LAST:event_itemsListMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
         //Clear Jlist on show
         model.removeAllElements();
         
