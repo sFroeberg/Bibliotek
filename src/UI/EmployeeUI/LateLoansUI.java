@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.EmployeeUI;
 
+import UI.CardLayoutMain;
+import UI.UI;
 import entities.Item;
 import entities.ItemLoan;
 import java.text.SimpleDateFormat;
@@ -98,6 +100,7 @@ public class LateLoansUI extends UI {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         EntityManager em = this.getCardLayoutMain().getEntityManager();
+        em.clear();
         List<ItemLoan> loansNotReturned = em.createNamedQuery("ItemLoan.findAllNotReturned").
                 getResultList();
         for(ItemLoan current : loansNotReturned){

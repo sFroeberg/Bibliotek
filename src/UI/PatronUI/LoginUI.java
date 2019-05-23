@@ -1,5 +1,8 @@
-package UI;
+package UI.PatronUI;
 
+import UI.CardLayoutMain;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.UI;
 import entities.Actor;
 import entities.Dvd;
 import entities.Employee;

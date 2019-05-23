@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Item.findByBarcode", query = "SELECT i FROM Item i WHERE i.barcode = :barcode")
     , @NamedQuery(name = "Item.findByTitle", query = "SELECT i FROM Item i WHERE i.title = :title")
     , @NamedQuery(name = "Item.findByLocation", query = "SELECT i FROM Item i WHERE i.location = :location")
-    , @NamedQuery(name = "Item.findByReleaseYear", query = "SELECT i FROM Item i WHERE i.releaseYear = :releaseYear")})
+    , @NamedQuery(name = "Item.findByReleaseYear", query = "SELECT i FROM Item i WHERE i.releaseYear = :releaseYear")
+    , @NamedQuery(name = "Item.findByTitleLike", query = "SELECT i FROM Item i WHERE i.title LIKE :title")})
 
 public class Item implements Serializable {
 

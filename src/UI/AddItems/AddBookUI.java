@@ -1,5 +1,8 @@
-package UI;
+package UI.AddItems;
 
+import UI.CardLayoutMain;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.UI;
 import entities.Author;
 import entities.Book;
 import entities.BookType;
@@ -51,7 +54,7 @@ public class AddBookUI extends UI {
         jLabel9 = new javax.swing.JLabel();
         bookTypeCombo = new javax.swing.JComboBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        authorsList = new javax.swing.JList<Author>();
+        authorsList = new javax.swing.JList<>();
         jLabel10 = new javax.swing.JLabel();
         authorListCombo = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
@@ -61,7 +64,7 @@ public class AddBookUI extends UI {
         tagsListCombo = new javax.swing.JComboBox();
         addTagBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tagsList = new javax.swing.JList<Tag>();
+        tagsList = new javax.swing.JList<>();
         jLabel13 = new javax.swing.JLabel();
 
         jLabel8.setText("jLabel8");

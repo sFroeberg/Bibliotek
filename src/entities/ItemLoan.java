@@ -104,5 +104,4 @@ public class ItemLoan implements Serializable {
     public String toString() {
         return "entities.ItemLoan[ itemLoanPK=" + itemLoanPK + " ]";
     }
-    
 }

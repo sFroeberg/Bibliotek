@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UI;
+package UI.EmployeeUI;
 
+import UI.CardLayoutMain;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.UI;
 import entities.Actor;
-import entities.Author;
 import entities.Patron;
 import entities.PatronType;
 import java.text.ParseException;
@@ -18,12 +20,12 @@ import javax.persistence.RollbackException;
  *
  * @author Felix
  */
-public class AddAuthorUI extends UI {
+public class AddActorUI extends UI {
 
     /**
      * Creates new form AddActorUI
      */
-    public AddAuthorUI(CardLayoutMain cardLayoutMain) {
+    public AddActorUI(CardLayoutMain cardLayoutMain) {
         super(cardLayoutMain);
         initComponents();
     }
@@ -42,23 +44,23 @@ public class AddAuthorUI extends UI {
         firstNameField = new javax.swing.JTextField();
         lastNameField = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        saveAuhorrBtn = new javax.swing.JButton();
+        saveActorBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Add author");
+        jLabel1.setText("Add actor");
 
         jLabel2.setText("Firstname");
 
         jLabel3.setText("Lastname");
 
-        saveAuhorrBtn.setText("Save author");
-        saveAuhorrBtn.addActionListener(new java.awt.event.ActionListener() {
+        saveActorBtn.setText("Save actor");
+        saveActorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAuhorrBtnActionPerformed(evt);
+                saveActorBtnActionPerformed(evt);
             }
         });
 
@@ -92,7 +94,7 @@ public class AddAuthorUI extends UI {
                                     .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
-                        .addComponent(saveAuhorrBtn)))
+                        .addComponent(saveActorBtn)))
                 .addContainerGap(198, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -111,7 +113,7 @@ public class AddAuthorUI extends UI {
                     .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(saveAuhorrBtn)
+                .addComponent(saveActorBtn)
                 .addContainerGap(232, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -120,21 +122,21 @@ public class AddAuthorUI extends UI {
         this.switchToCard(EmployeeStartUI.class);
     }//GEN-LAST:event_backBtnActionPerformed
 
-    private void saveAuhorrBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAuhorrBtnActionPerformed
-        Author newAuthor = new Author();
-        newAuthor.setFirstName(firstNameField.getText());
-        newAuthor.setLastName(lastNameField.getText());
+    private void saveActorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActorBtnActionPerformed
+        Actor newActor = new Actor();
+        newActor.setFirstName(firstNameField.getText());
+        newActor.setLastName(lastNameField.getText());
         try{
             //Save to database
             this.getCardLayoutMain().getEntityManager().getTransaction().begin();
-            this.getCardLayoutMain().getEntityManager().persist(newAuthor);
+            this.getCardLayoutMain().getEntityManager().persist(newActor);
             this.getCardLayoutMain().getEntityManager().getTransaction().commit();
-            UI.showInfoDialog("Author saved!");
+            UI.showInfoDialog("Actor saved!");
             this.switchToCard(EmployeeStartUI.class);
         }catch (RollbackException | IllegalStateException e){
-            UI.showErrorDialog("Could not save author to database");
+            UI.showErrorDialog("Could not save actor to database");
         }
-    }//GEN-LAST:event_saveAuhorrBtnActionPerformed
+    }//GEN-LAST:event_saveActorBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -144,6 +146,6 @@ public class AddAuthorUI extends UI {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField lastNameField;
-    private javax.swing.JButton saveAuhorrBtn;
+    private javax.swing.JButton saveActorBtn;
     // End of variables declaration//GEN-END:variables
 }

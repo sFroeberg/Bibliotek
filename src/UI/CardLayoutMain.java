@@ -1,5 +1,19 @@
 package UI;
 
+import UI.EmployeeUI.AddAuthorUI;
+import UI.EmployeeUI.AddActorUI;
+import UI.PatronUI.StartPageUI;
+import UI.PatronUI.CreateLoanUI;
+import UI.PatronUI.LoginUI;
+import UI.PatronUI.ItemSearchUI;
+import UI.PatronUI.PatronOverviewUI;
+import UI.EmployeeUI.EmployeeStartUI;
+import UI.EmployeeUI.LateLoansUI;
+import UI.EmployeeUI.PatronSearchUI;
+import UI.EmployeeUI.PatronAdminUI;
+import UI.EmployeeUI.RegisterPatronUI;
+import UI.AddItems.AddBookUI;
+import UI.AddItems.AddDVDUI;
 import entities.Employee;
 import entities.Patron;
 import java.awt.*;
@@ -27,7 +41,7 @@ public class CardLayoutMain {
         //Add all views
         UIlist = new ArrayList<>();
         UIlist.add(new StartPageUI(this));
-
+        UIlist.add(new EmployeeStartUI(this));
         UIlist.add(new ActorSearch(this));
         UIlist.add(new AddActorUI(this));
         UIlist.add(new AddAuthorUI(this));
@@ -39,7 +53,6 @@ public class CardLayoutMain {
         UIlist.add(new LateLoansUI(this));
         UIlist.add(new LoginUI(this));
         UIlist.add(new PatronAdminUI(this));
-        UIlist.add(new PatronLoanUI(this));
         UIlist.add(new PatronOverviewUI(this));
         UIlist.add(new PatronSearchUI(this));
         UIlist.add(new RegisterPatronUI(this));
