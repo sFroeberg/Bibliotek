@@ -39,6 +39,7 @@ public class EmployeeStartUI extends UI {
         searchPatronBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        returnItemBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -93,6 +94,13 @@ public class EmployeeStartUI extends UI {
 
         jLabel2.setText("Item administration");
 
+        returnItemBtn.setText("Return item");
+        returnItemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnItemBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,13 +123,16 @@ public class EmployeeStartUI extends UI {
                         .addGap(65, 65, 65))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newPatronBtn)
-                            .addComponent(searchPatronBtn))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(addBookBtn)
-                            .addComponent(addDvdBtn))
+                            .addComponent(returnItemBtn)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(newPatronBtn)
+                                    .addComponent(searchPatronBtn))
+                                .addGap(38, 38, 38)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(addBookBtn)
+                                    .addComponent(addDvdBtn))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -145,7 +156,9 @@ public class EmployeeStartUI extends UI {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addDvdBtn)
                     .addComponent(searchPatronBtn))
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(returnItemBtn)
+                .addContainerGap(217, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,6 +192,10 @@ public class EmployeeStartUI extends UI {
         this.switchToCard(PatronSearchUI.class);
     }//GEN-LAST:event_searchPatronBtnActionPerformed
 
+    private void returnItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnItemBtnActionPerformed
+        this.switchToCard(ItemReturnUI.class);
+    }//GEN-LAST:event_returnItemBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBookBtn;
@@ -188,6 +205,7 @@ public class EmployeeStartUI extends UI {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton newPatronBtn;
+    private javax.swing.JButton returnItemBtn;
     private javax.swing.JButton searchPatronBtn;
     private javax.swing.JLabel textField2;
     // End of variables declaration//GEN-END:variables

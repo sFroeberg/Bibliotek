@@ -136,9 +136,9 @@ public class PatronOverviewUI extends UI {
             .addGroup(layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(overviewFullName)
-                .addGap(33, 33, 33)
+                .addGap(52, 52, 52)
                 .addComponent(jLabel8)
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,7 +155,7 @@ public class PatronOverviewUI extends UI {
                         .addComponent(overviewDob, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(overviewChangeButton)
                     .addComponent(logOutBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -309,11 +309,11 @@ public class PatronOverviewUI extends UI {
     }//GEN-LAST:event_overviewChangeButtonActionPerformed
 
     private void newLoanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newLoanBtnActionPerformed
-        switchToCard(CreateLoanUI.class);
+        this.switchToCard(CreateLoanUI.class);
     }//GEN-LAST:event_newLoanBtnActionPerformed
 
     private void itemSrchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSrchBtnActionPerformed
-        switchToCard(ItemSearchUI.class);
+        this.switchToCard(ItemSearchUI.class);
     }//GEN-LAST:event_itemSrchBtnActionPerformed
 
     private void logOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutBtnActionPerformed
