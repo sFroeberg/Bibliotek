@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ItemLoan.findAll", query = "SELECT i FROM ItemLoan i")
     , @NamedQuery(name = "ItemLoan.findByItemBarcode", query = "SELECT i FROM ItemLoan i WHERE i.itemLoanPK.itemBarcode = :itemBarcode")
     , @NamedQuery(name = "ItemLoan.findByLoanId", query = "SELECT i FROM ItemLoan i WHERE i.itemLoanPK.loanId = :loanId")
+    , @NamedQuery(name = "ItemLoan.findAllNotReturned", query = "SELECT i FROM ItemLoan i WHERE i.returned IS NULL")
     , @NamedQuery(name = "ItemLoan.findByReturned", query = "SELECT i FROM ItemLoan i WHERE i.returned = :returned")})
 public class ItemLoan implements Serializable {
 

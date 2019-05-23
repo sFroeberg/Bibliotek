@@ -34,6 +34,7 @@ public class CardLayoutMain {
         UIlist.add(new CreateLoanUI(this));
         UIlist.add(new EmployeeStartUI(this));
         UIlist.add(new ItemSearchUI(this));
+        UIlist.add(new LateLoansUI(this));
         UIlist.add(new LoginUI(this));
         UIlist.add(new PatronAdminUI(this));
         UIlist.add(new PatronLoanUI(this));

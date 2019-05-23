@@ -5,6 +5,7 @@
  */
 package UI;
 
+import entities.Employee;
 import entities.Item;
 import entities.ItemLoan;
 import entities.Loan;
@@ -152,23 +153,10 @@ public class StartPageUI extends UI {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         EntityManager em = this.getCardLayoutMain().getEntityManager();
-        List<Patron> patron = em.createNamedQuery("Patron.findByPatronId").setParameter("patronId", 1).getResultList();
-        this.getCardLayoutMain().setPatronLoggedIn(patron.get(0));
-        System.out.println(this.getCardLayoutMain().getPatronLoggedIn().getLoansNotReturned());
-        /*
-        this.switchToCard(CreateLoanUI.class);
-        ArrayList<UI> cards = this.getCardLayoutMain().getUIlist();
-        for(UI current : cards){
-            if(current instanceof CreateLoanUI){
-                System.out.println(current);
-            }
-        }
-        List<Loan> asd = (List)this.getCardLayoutMain().getPatronLoggedIn().getLoanCollection();
-        for(Loan current: asd){
-            for(ItemLoan curr: current.getItemLoanCollection()){
-                System.out.println(curr.getItem().getTitle());
-            }
-        }*/
+        List<Employee> employee = em.createNamedQuery("Employee.findByEmployeeId").setParameter("employeeId", 1).getResultList();
+        this.getCardLayoutMain().setEmpLoggedIn(employee.get(0));
+        this.switchToCard(EmployeeStartUI.class);
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
