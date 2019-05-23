@@ -51,7 +51,6 @@ public class StartPageUI extends UI {
         searchBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         myPageBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
@@ -83,14 +82,7 @@ public class StartPageUI extends UI {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel1.setText("Welcome!");
 
-        jLabel2.setText("Choose whether you want to search for an item or login to the sytem.");
-
-        jButton1.setText("Test");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jLabel2.setText("Choose if you want to search for an item or login to the sytem.");
 
         myPageBtn.setText("My page");
         myPageBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -104,16 +96,9 @@ public class StartPageUI extends UI {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(268, 268, 268)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(121, 121, 121)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(21, 21, 21))
+                .addGap(268, 268, 268)
+                .addComponent(jLabel1)
+                .addGap(21, 271, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -124,17 +109,18 @@ public class StartPageUI extends UI {
                         .addComponent(searchBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(260, 260, 260)
-                        .addComponent(myPageBtn)))
+                        .addComponent(myPageBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel1)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(loginBtn)
@@ -153,15 +139,6 @@ public class StartPageUI extends UI {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         this.switchToCard(ItemSearchUI.class);
     }//GEN-LAST:event_searchBtnActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EntityManager em = this.getCardLayoutMain().getEntityManager();
-        List<Employee> employee = em.createNamedQuery("Employee.findByEmployeeId").setParameter("employeeId", 1).getResultList();
-        this.getCardLayoutMain().setEmpLoggedIn(employee.get(0));
-        this.switchToCard(EmployeeStartUI.class);
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         EntityManager em = this.getCardLayoutMain().getEntityManager();
@@ -185,7 +162,6 @@ public class StartPageUI extends UI {
     }//GEN-LAST:event_myPageBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton loginBtn;
