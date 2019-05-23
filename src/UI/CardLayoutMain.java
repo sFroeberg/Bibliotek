@@ -29,6 +29,8 @@ public class CardLayoutMain {
         UIlist.add(new StartPageUI(this));
 
         UIlist.add(new ActorSearch(this));
+        UIlist.add(new AddActorUI(this));
+        UIlist.add(new AddAuthorUI(this));
         UIlist.add(new AddBookUI(this));
         UIlist.add(new AddDVDUI(this));
         UIlist.add(new CreateLoanUI(this));

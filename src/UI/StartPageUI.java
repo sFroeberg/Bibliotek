@@ -153,7 +153,7 @@ public class StartPageUI extends UI {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         EntityManager em = this.getCardLayoutMain().getEntityManager();
-        List<Employee> employee = em.createNamedQuery("Employee.findByEmployeeId").setParameter("employeeId", 1).getResultList();
+        List<Employee> employee = em.createNamedQuery("Employee.findByEmployeeId").setParameter("employeeId", 2).getResultList();
         this.getCardLayoutMain().setEmpLoggedIn(employee.get(0));
         this.switchToCard(EmployeeStartUI.class);
         

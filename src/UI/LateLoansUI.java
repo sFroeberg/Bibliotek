@@ -43,6 +43,7 @@ public class LateLoansUI extends UI {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lateLoansList = new javax.swing.JList();
+        backBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -57,12 +58,21 @@ public class LateLoansUI extends UI {
 
         jScrollPane1.setViewportView(lateLoansList);
 
+        backBtn.setText("Back");
+        backBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(254, 254, 254)
+                .addContainerGap()
+                .addComponent(backBtn)
+                .addGap(171, 171, 171)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -73,8 +83,13 @@ public class LateLoansUI extends UI {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backBtn)))
                 .addGap(28, 28, 28)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -106,7 +121,7 @@ public class LateLoansUI extends UI {
             if(finalDate.before(now)){
                 String listStr = "";
                 listStr += "Title: "+current.getItem().getTitle()+"  ";
-                listStr += "Patron: "+current.getLoan().getPatronId().getFullName()+"  ";
+                listStr += "Patron: "+current.getLoan().getPatronId().getFullName()+" ("+current.getLoan().getPatronId().getPatronId()+")  ";
                 //Calc how many days late
                 long diff = now.getTime() - finalDate.getTime();
                 listStr += "Days late: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
@@ -115,6 +130,10 @@ public class LateLoansUI extends UI {
             
         }
     }//GEN-LAST:event_formComponentShown
+
+    private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
+        this.switchToCard(EmployeeStartUI.class);
+    }//GEN-LAST:event_backBtnActionPerformed
     private void initJlist(){
         model = new DefaultListModel<>();
         lateLoansList.setModel(model);
@@ -122,6 +141,7 @@ public class LateLoansUI extends UI {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList lateLoansList;

@@ -298,6 +298,7 @@ public class CreateLoanUI extends UI {
     }//GEN-LAST:event_itemsListMouseClicked
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        this.getCardLayoutMain().getEntityManager().clear();
         //Clear Jlist on show
         model.removeAllElements();
         
