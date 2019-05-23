@@ -502,16 +502,12 @@ public class ItemSearchUI extends UI {
     }//GEN-LAST:event_isbnSearchActionPerformed
 
     private void sendToLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendToLogInActionPerformed
-
-        switchToCard(LoginUI.class);
-        
+        this.switchToCard(LoginUI.class);
     }//GEN-LAST:event_sendToLogInActionPerformed
     
     private void addToLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToLoanActionPerformed
-       
        lst2.addElement(resultList.getSelectedValue());
        toLoanList.setModel(lst2);   
-       
     }//GEN-LAST:event_addToLoanActionPerformed
 
     private void loanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanButtonActionPerformed

@@ -43,6 +43,7 @@ public class PatronAdminUI extends UI {
         passwordField2 = new javax.swing.JPasswordField();
         passwordField = new javax.swing.JPasswordField();
         backBtn = new javax.swing.JButton();
+        retrnItemBtn = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(600, 400));
         setMinimumSize(new java.awt.Dimension(600, 400));
@@ -111,6 +112,13 @@ public class PatronAdminUI extends UI {
             }
         });
 
+        retrnItemBtn.setText("Return item loan");
+        retrnItemBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retrnItemBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,7 +153,9 @@ public class PatronAdminUI extends UI {
                         .addGap(212, 212, 212))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(overviewChangeButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(retrnItemBtn)
+                        .addGap(189, 189, 189))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(backBtn)
@@ -202,7 +212,8 @@ public class PatronAdminUI extends UI {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(overviewDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(overviewChangeButton))
+                    .addComponent(overviewChangeButton)
+                    .addComponent(retrnItemBtn))
                 .addContainerGap(118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -309,6 +320,10 @@ public class PatronAdminUI extends UI {
         this.switchToCard(PatronSearchUI.class);
     }//GEN-LAST:event_backBtnActionPerformed
 
+    private void retrnItemBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_retrnItemBtnActionPerformed
+        this.switchToCard(ItemReturnUI.class);
+    }//GEN-LAST:event_retrnItemBtnActionPerformed
+
     public Patron getPatron() {
         return patron;
     }
@@ -342,5 +357,6 @@ public class PatronAdminUI extends UI {
     private javax.swing.JTextField overviewTele;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JPasswordField passwordField2;
+    private javax.swing.JButton retrnItemBtn;
     // End of variables declaration//GEN-END:variables
 }
